@@ -77,7 +77,7 @@ Team Design
 >- Design 3 represented a central server to be used to communicate with the External Web Service
 >- Design 3 also included 2 additional classes (PreviouslySolvedCryptogram & ListOfAvailableCryptogram) in order to handle the specific player’s previously solved cryptograms and the list of all available cryptograms within the application.
 
-**Design Justification: **
+**Design Justification:**
 
 We had choose to use our design because we wanted the classes that represented the entities from the requirements to have separation and single responsibility. For example we wanted a class to represent a Player, Cryptogram, Solution etc. instead of grouping these items together. This helped us create a concise and well organized UML class diagram. Which will help us when we begin the implementation stage.
 
