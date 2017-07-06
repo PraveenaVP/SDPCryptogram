@@ -40,7 +40,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
 
     //Database Name
-    public static final String DATABASE_NAME = "SDPCryptogram_DB";
+    public static final String DATABASE_NAME = "SDPCryptogram.db";
 
     //Database Table Adminstrator
     public static final String TABLE_ADMINISTRATORS =  "Admin";
@@ -83,8 +83,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        SQLiteDatabase db = this.getWritableDatabase();
-    }
+           }
 
     /**
      * Called when the database is created for the first time. This is where the
@@ -97,25 +96,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 //        //Creating Adminstrators Table
-        String CREATE_ADMINSTRATORS_TABLE = "CREATE TABLE "+TABLE_ADMINISTRATORS + "("
+        String CREATE_ADMINSTRATORS_TABLE = "CREATE TABLE "+TABLE_ADMINISTRATORS + " ( "
                // + ADMIN_ID + "INTEGER PRIMARY KEY,"
                 + ADMIN_USERNAME + "TEXT UNIQUE"  + ")" ;
 
         try {
             db.execSQL(CREATE_ADMINSTRATORS_TABLE);
-            insertAdmin("admin001");
         }catch (Exception e)
         {
             System.out.println("Unable to create Adminstrator table");
         }
 
         //Creating Players Table
-        String CREATE_PLAYERS_TABLE = "CREATE TABLE "+TABLE_PLAYERS + "("
+        String CREATE_PLAYERS_TABLE = "CREATE TABLE "+TABLE_PLAYERS + " ( "
                // + PLAYER_ID + "INTEGER PRIMARY KEY,"
-                + PLAYER_FIRSTNAME + "TEXT,"
-                + PLAYER_LASTNAME + "TEXT,"
-                + PLAYER_USERNAME + "TEXT UNIQUE"
-                + ")" ;
+                + PLAYER_FIRSTNAME + " TEXT, "
+                + PLAYER_LASTNAME + " TEXT, "
+                + PLAYER_USERNAME + " TEXT UNIQUE "
+                + " ) " ;
 
         try {
             db.execSQL(CREATE_PLAYERS_TABLE);
@@ -128,11 +126,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
         //Creating Cryptograms Table
-        String CREATE_CRYPTOGRAMS_TABLE = "CREATE TABLE "+TABLE_CRYPTOGRAMS + "("
-                + CRYPTOGRAM_ID + "INTEGER PRIMARY KEY,"
-                + CRYPTOGRAM + "TEXT,"
-                + SOLUTION + "TEXT"
-                + ")" ;
+        String CREATE_CRYPTOGRAMS_TABLE = "CREATE TABLE "+TABLE_CRYPTOGRAMS + " ( "
+                + CRYPTOGRAM_ID + " INTEGER PRIMARY KEY, "
+                + CRYPTOGRAM + " TEXT, "
+                + SOLUTION + " TEXT "
+                + " ) " ;
 
         try {
             db.execSQL(CREATE_CRYPTOGRAMS_TABLE);
@@ -143,10 +141,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
         //Creating Player_Games Table.
         String CREATE_PLAYER_GAMES_TABLE = "CREATE TABLE "+TABLE_PLAYER_GAMES + "("
-                + PLAYER_GAMES_PLAYER_USERNAME + "TEXT,"
-                + PLAYER_GAMES_CRYPTOGRAM_ID + "INTEGER,"
-                + PLAYER_GAMES_TEXT + "TEXT,"
-                + PLAYER_GAMES_STATUS + "TEXT,"
+                + PLAYER_GAMES_PLAYER_USERNAME + " TEXT, "
+                + PLAYER_GAMES_CRYPTOGRAM_ID + " INTEGER, "
+                + PLAYER_GAMES_TEXT + " TEXT, "
+                + PLAYER_GAMES_STATUS + " TEXT, "
                // + "PRIMARY KEY ("+PLAYER_GAMES_PLAYER_USERNAME + "," +PLAYER_GAMES_CRYPTOGRAM_ID+")"
                 + ")" ;
 
@@ -198,8 +196,6 @@ public class DBHelper extends SQLiteOpenHelper {
     //CRUD Operations on the Tables
 
     //Insert Data
-
-
     //Insert Admin
     public void insertAdmin(String username)
     {
