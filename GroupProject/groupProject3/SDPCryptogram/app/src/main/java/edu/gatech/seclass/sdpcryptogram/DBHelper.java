@@ -141,7 +141,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         //Creating Player_Games Table.
         String CREATE_PLAYER_GAMES_TABLE = "CREATE TABLE "+TABLE_PLAYER_GAMES + "("
-                + PLAYER_GAMES_PLAYER_USERNAME + "INTEGER,"
+                + PLAYER_GAMES_PLAYER_USERNAME + "TEXT,"
                 + PLAYER_GAMES_CRYPTOGRAM_ID + "INTEGER,"
                 + PLAYER_GAMES_TEXT + "TEXT,"
                 + PLAYER_GAMES_STATUS + "TEXT,"
@@ -334,7 +334,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String displyCryptogramQuery = "SELECT * FROM "+TABLE_CRYPTOGRAMS +
                                         " WHERE " + CRYPTOGRAM_ID + ">" +cryptogramID +
                                         " ORDER BY  " +CRYPTOGRAM_ID + "ASC " +
-                                        " LIMIT BY = " + limit +";" ;
+                                        " LIMIT " + limit +";" ;
 
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -402,17 +402,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     /**
-     * Retrieve user ratings
+     * Retrieve single user ratings
      * @param username=the username used to log into the application
      */
-    public  List<Player_Games_DB> displayUserRatings(String username)
+    public  List<Player_Games_DB> displaySingleUserRatings(String username)
     {
         List<Player_Games_DB> userratings_list = new ArrayList<Player_Games_DB>();
 
-        String displayUserRatingsQuery = " SELECT count("+PLAYER_GAMES_STATUS +"), AS RATINGS "+
+        String displayUserRatingsQuery = " SELECT" + PLAYER_GAMES_STATUS +",COUNT("+PLAYER_GAMES_STATUS +"), AS RATINGS "+
                 " FROM "  + TABLE_PLAYER_GAMES + " WHERE " + PLAYER_GAMES_PLAYER_USERNAME +
                    " = '"  + username +",  GROUP BY " +
-                 PLAYER_GAMES_STATUS + " ORDER BY count(" + PLAYER_GAMES_STATUS  + ") DESC ;";
+                 PLAYER_GAMES_STATUS + " ORDER BY COUNT(" + PLAYER_GAMES_STATUS  + ") DESC ;";
 
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -460,13 +460,76 @@ public class DBHelper extends SQLiteOpenHelper {
     public  List<Player_Games_DB> displayAllUserRatings() {
         List<Player_Games_DB> userratings_list = new ArrayList<Player_Games_DB>();
 
-        String displayUserRatingsQuery = "SELECT " + PLAYER_GAMES_PLAYER_USERNAME + ", COUNT(" + PLAYER_GAMES_STATUS + ") AS RATINGS" +
+        String displayUserRatingsQuery = "SELECT " + PLAYER_GAMES_PLAYER_USERNAME + ","+ PLAYER_GAMES_STATUS+ ", COUNT(" + PLAYER_GAMES_STATUS + ") AS RATINGS" +
                                          "FROM "+ TABLE_PLAYER_GAMES +
-                                         "GROUP BY "+PLAYER_GAMES_PLAYER_USERNAME+","+PLAYER_GAMES_STATUS+" ORDER BY COUNT ("+PLAYER_GAMES_STATUS+") DESC";
+                                         "GROUP BY "+PLAYER_GAMES_PLAYER_USERNAME+","+PLAYER_GAMES_STATUS+" ORDER BY "+PLAYER_GAMES_STATUS +", COUNT ("+PLAYER_GAMES_STATUS+") DESC";
 
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor userratings_cursor = db.rawQuery(displayUserRatingsQuery,null);
+
+
+        if(userratings_cursor.getCount() > 0)
+        {
+
+            do{
+
+                    Player_Games_DB alluser = new Player_Games_DB();
+                    alluser.set_username(userratings_cursor.getColumnName(0));
+                    userratings_cursor.moveToNext();
+                    char retrieve_status1 =userratings_cursor.getString(0).charAt(0);
+                    if(retrieve_status1 == 'C')
+                    {
+                        alluser.set_correct(Integer.parseInt(userratings_cursor.getString(1)));
+                    }
+                    else if(retrieve_status1 == 'I')
+                    {
+                        alluser.set_incorrect(Integer.parseInt(userratings_cursor.getString(1)));
+                    }
+                    else if(retrieve_status1 == 'S')
+                    {
+                        alluser.set_started(Integer.parseInt(userratings_cursor.getString(1)));
+                    }
+
+                    userratings_cursor.moveToNext();
+                    char retrieve_status2 =userratings_cursor.getString(0).charAt(0);
+                    if(retrieve_status2 == 'C')
+                    {
+                        alluser.set_correct(Integer.parseInt(userratings_cursor.getString(1)));
+                    }
+                    else if(retrieve_status2 == 'I')
+                    {
+                        alluser.set_incorrect(Integer.parseInt(userratings_cursor.getString(1)));
+                    }
+                    else if(retrieve_status2 == 'S')
+                    {
+                        alluser.set_started(Integer.parseInt(userratings_cursor.getString(1)));
+                    }
+
+                    userratings_cursor.moveToNext();
+                    char retrieve_status3 =userratings_cursor.getString(0).charAt(0);
+                    if(retrieve_status3 == 'C')
+                    {
+                        alluser.set_correct(Integer.parseInt(userratings_cursor.getString(1)));
+                    }
+                    else if(retrieve_status3 == 'I')
+                    {
+                        alluser.set_incorrect(Integer.parseInt(userratings_cursor.getString(1)));
+                    }
+                    else if(retrieve_status3 == 'S')
+                    {
+                        alluser.set_started(Integer.parseInt(userratings_cursor.getString(1)));
+                    }
+
+
+
+                userratings_list.add(alluser);
+
+
+
+            }
+            while(userratings_cursor.moveToNext());
+        }
 
         return userratings_list;
     }
