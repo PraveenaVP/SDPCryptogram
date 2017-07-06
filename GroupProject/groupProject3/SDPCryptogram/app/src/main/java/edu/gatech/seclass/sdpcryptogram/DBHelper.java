@@ -98,7 +98,7 @@ public class DBHelper extends SQLiteOpenHelper {
 //        //Creating Adminstrators Table
         String CREATE_ADMINSTRATORS_TABLE = "CREATE TABLE "+TABLE_ADMINISTRATORS + " ( "
                // + ADMIN_ID + "INTEGER PRIMARY KEY,"
-                + ADMIN_USERNAME + "TEXT UNIQUE"  + ")" ;
+                + ADMIN_USERNAME + " TEXT UNIQUE "  + ")" ;
 
         try {
             db.execSQL(CREATE_ADMINSTRATORS_TABLE);
