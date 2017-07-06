@@ -83,6 +83,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        SQLiteDatabase db = this.getWritableDatabase();
     }
 
     /**
@@ -95,13 +96,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
 
-        //Creating Adminstrators Table
+//        //Creating Adminstrators Table
         String CREATE_ADMINSTRATORS_TABLE = "CREATE TABLE "+TABLE_ADMINISTRATORS + "("
                // + ADMIN_ID + "INTEGER PRIMARY KEY,"
                 + ADMIN_USERNAME + "TEXT UNIQUE"  + ")" ;
 
         try {
             db.execSQL(CREATE_ADMINSTRATORS_TABLE);
+            insertAdmin("admin001");
         }catch (Exception e)
         {
             System.out.println("Unable to create Adminstrator table");
@@ -145,7 +147,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + PLAYER_GAMES_CRYPTOGRAM_ID + "INTEGER,"
                 + PLAYER_GAMES_TEXT + "TEXT,"
                 + PLAYER_GAMES_STATUS + "TEXT,"
-                + "PRIMARY KEY ("+PLAYER_GAMES_PLAYER_USERNAME + "," +PLAYER_GAMES_CRYPTOGRAM_ID+")"
+               // + "PRIMARY KEY ("+PLAYER_GAMES_PLAYER_USERNAME + "," +PLAYER_GAMES_CRYPTOGRAM_ID+")"
                 + ")" ;
 
 
@@ -196,6 +198,25 @@ public class DBHelper extends SQLiteOpenHelper {
     //CRUD Operations on the Tables
 
     //Insert Data
+
+
+    //Insert Admin
+    public void insertAdmin(String username)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        //Adding Admin defaultvalue
+        contentValues.put(ADMIN_USERNAME,username);
+
+        long result = db.insert(TABLE_ADMINISTRATORS,null,contentValues);
+
+        if(result == -1){
+                //Exception
+            }
+
+
+    }
 
     //Insert into Players Table
 
@@ -248,7 +269,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     // Insert/Update into Player_Games Tables
-    public boolean insertupdateDataPlayer_Games(int player_username, int cryptogramID, String userText, String gamestatus)
+    public boolean insertupdateDataPlayer_Games(String player_username, int cryptogramID, String userText, String gamestatus)
     {
         boolean status = false;
         SQLiteDatabase db  = this.getWritableDatabase();
@@ -269,18 +290,18 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         else
         {
-            ContentValues updatecontentValues = new ContentValues();
-
-            //Adding the values
-
-            updatecontentValues.put(PLAYER_GAMES_TEXT,userText);
-            updatecontentValues.put(PLAYER_GAMES_STATUS,gamestatus);
-            String where = PLAYER_GAMES_PLAYER_USERNAME+" = "+player_username + " AND " + PLAYER_GAMES_CRYPTOGRAM_ID + " = " +PLAYER_GAMES_CRYPTOGRAM_ID;
-            result = db.update(TABLE_PLAYER_GAMES,updatecontentValues,where,null);
-
-            if(result != -1){
-                status = true;
-            }
+//            ContentValues updatecontentValues = new ContentValues();
+//
+//            //Adding the values
+//
+//            updatecontentValues.put(PLAYER_GAMES_TEXT,userText);
+//            updatecontentValues.put(PLAYER_GAMES_STATUS,gamestatus);
+//            String where = PLAYER_GAMES_PLAYER_USERNAME+" = "+player_username + " AND " + PLAYER_GAMES_CRYPTOGRAM_ID + " = " +PLAYER_GAMES_CRYPTOGRAM_ID;
+//            result = db.update(TABLE_PLAYER_GAMES,updatecontentValues,where,null);
+//
+//            if(result != -1){
+//                status = true;
+//            }
         }
 
         return  status;
@@ -320,6 +341,37 @@ public class DBHelper extends SQLiteOpenHelper {
         return current_player;
 
     }
+
+
+    /**
+     * Retrieves the solution from Cryptogram Table using the cryptogram ID
+     * to check for the solution
+     * @param cryptogram_id: The id of the cryptogram
+     */
+
+    public String CryptogramSolution(int cryptogram_id)
+    {
+        String solution = "";
+        String selectCryptogramQuery = " SELECT SOULTION FROM " + TABLE_CRYPTOGRAMS+
+                                        "WHERE " + CRYPTOGRAM_ID + " = " +cryptogram_id;
+
+        SQLiteDatabase db  = this.getWritableDatabase();
+        Cursor cryptogram_cursor = db.rawQuery(selectCryptogramQuery,null);
+
+        if(cryptogram_cursor.getCount() > 0)
+        {
+            solution  = cryptogram_cursor.getString(0);
+        }
+        else
+        {
+            //exception
+        }
+        return solution;
+    }
+
+
+
+
 
     /** Retrieve cryptograms lesser than the cryptogramID provided
      * This is done to facilitate batch retrieval.
