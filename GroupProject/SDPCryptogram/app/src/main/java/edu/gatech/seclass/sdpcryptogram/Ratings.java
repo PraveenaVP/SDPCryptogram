@@ -33,14 +33,24 @@ public class Ratings extends AppCompatActivity {
         TextView txt2 = (TextView) findViewById(R.id.txt2);
         TextView txt3 = (TextView) findViewById(R.id.txt3);
 
+
         String playername = sdpdb.displayPlayerData(username);
         String[] ratings = sdpdb.displaySingleUserRatings(username);
         //String[] test = sdpdb.displayAllUserRatings();
         if(ratings!= null) {
             txtusername.setText(playername);
-            txt1.setText(ratings[0]);
-            txt2.setText(ratings[1]);
-            txt3.setText(ratings[2]);
+            if(ratings.length == 1) {
+                txt1.setText(ratings[0]);
+            }
+            else if(ratings.length == 2) {
+                txt1.setText(ratings[0]);
+                txt2.setText(ratings[1]);
+            }
+            else if(ratings.length == 3) {
+                txt1.setText(ratings[0]);
+                txt2.setText(ratings[1]);
+                txt3.setText(ratings[2]);
+            }
         }
         else
         {
