@@ -405,6 +405,11 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cryptogram_cursor = db.rawQuery(displyCryptogramQuery,null);
 
         int count = cryptogram_cursor.getCount();
+        if(count == 0)
+        {
+            db.close();
+            return null;
+        }
         String cryptogram_list[] = new String[count];
         int i = 0;
         if(cryptogram_cursor.moveToFirst())
@@ -517,6 +522,11 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor priorgames_cursor = db.rawQuery(displayPriorGamesQuery,null);
         int count = priorgames_cursor.getCount();
+        if(count == 0)
+        {
+            db.close();
+            return null;
+        }
         String[] priorgames = new String[count+1];
         StringBuffer sb = new StringBuffer();
         sb.append("CryptID");
@@ -589,6 +599,11 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor userratings_cursor = db.rawQuery(displayUserRatingsQuery,null);
 
         int count  = userratings_cursor.getCount();
+        if(count == 0)
+        {
+            db.close();
+            return null;
+        }
         String[] ratinglist = new String[count];
 
                 int i =0;
