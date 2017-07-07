@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="41dp"
 
         android:text="Incorrect"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -65,18 +65,19 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt1"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginLeft="52dp" />
 
     <TextView
         android:id="@+id/txt3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="1dp"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="36dp"
         android:text="Started"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/white"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/txt2"
         app:layout_constraintRight_toRightOf="@+id/txt1"
         app:layout_constraintTop_toBottomOf="@+id/txt2"

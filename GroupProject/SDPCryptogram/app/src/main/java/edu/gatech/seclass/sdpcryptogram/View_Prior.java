@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,10 +26,16 @@ public class View_Prior extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         username= bundle.getString("username");
         String[] testdata = sdpdb.displayPriorGames(username);
-        ListView priortList = (ListView)findViewById(R.id.prior_listview);
-        ArrayAdapter<String> priorlistAdapter = new ArrayAdapter<String>(this,R.layout.prior_list,R.id.prior_text,testdata);
-        priortList.setAdapter(priorlistAdapter);
-        priortList.setOnItemClickListener(new ItemList());
+        if(testdata != null) {
+            ListView priortList = (ListView) findViewById(R.id.prior_listview);
+            ArrayAdapter<String> priorlistAdapter = new ArrayAdapter<String>(this, R.layout.prior_list, R.id.prior_text, testdata);
+            priortList.setAdapter(priorlistAdapter);
+            priortList.setOnItemClickListener(new ItemList());
+        }
+        else
+        {
+            Toast.makeText(this,"No Prior Games",Toast.LENGTH_SHORT).show();
+        }
 
     }
 

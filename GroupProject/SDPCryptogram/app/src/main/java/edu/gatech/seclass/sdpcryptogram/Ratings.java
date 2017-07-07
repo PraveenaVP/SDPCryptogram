@@ -29,17 +29,29 @@ public class Ratings extends AppCompatActivity {
         sdpdb = new DBHelper(this);
 
         TextView txtusername = (TextView)findViewById(R.id.txtUsername);
-        String playername = sdpdb.displayPlayerData(username);
-        String[] test = sdpdb.displayAllUserRatings();
-        txtusername.setText(playername);
+        TextView txt1 = (TextView) findViewById(R.id.txt1);
+        TextView txt2 = (TextView) findViewById(R.id.txt2);
+        TextView txt3 = (TextView) findViewById(R.id.txt3);
 
+        String playername = sdpdb.displayPlayerData(username);
         String[] ratings = sdpdb.displaySingleUserRatings(username);
-        TextView txt1 = (TextView)findViewById(R.id.txt1);
-        txt1.setText(ratings[0]);
-        TextView txt2 = (TextView)findViewById(R.id.txt2);
-        txt2.setText(ratings[1]);
-        TextView txt3 = (TextView)findViewById(R.id.txt3);
-        txt3.setText(ratings[2]);
+        //String[] test = sdpdb.displayAllUserRatings();
+        if(ratings!= null) {
+            txtusername.setText(playername);
+            txt1.setText(ratings[0]);
+            txt2.setText(ratings[1]);
+            txt3.setText(ratings[2]);
+        }
+        else
+        {
+            txtusername.setText("");
+            txt1.setText("");
+            txt2.setText("");
+            txt3.setText("");
+            Toast.makeText(this,"No Records Found!!!",Toast.LENGTH_SHORT).show();
+
+
+        }
 
 //        ListView ratingsList = (ListView)findViewById(R.id.ratings_listview);
 //        ArrayAdapter<String> ratingslistAdapter = new ArrayAdapter<String>(this,R.layout.ratings,R.id.ratings_xml,test);
