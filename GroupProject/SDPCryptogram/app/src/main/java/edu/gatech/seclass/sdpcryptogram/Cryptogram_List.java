@@ -65,6 +65,10 @@ public class Cryptogram_List extends AppCompatActivity {
         }
     }
 
+    public void onReturnClick(View view)
+    {
+        super.onBackPressed();
+    }
 
 }
 

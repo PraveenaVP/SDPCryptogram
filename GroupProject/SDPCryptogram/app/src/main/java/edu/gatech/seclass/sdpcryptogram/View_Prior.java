@@ -57,4 +57,9 @@ public class View_Prior extends AppCompatActivity {
 
         }
     }
+
+    public void onReturnClick(View view)
+    {
+        super.onBackPressed();
+    }
 }

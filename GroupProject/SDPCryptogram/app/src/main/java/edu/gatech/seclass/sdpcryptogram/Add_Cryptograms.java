@@ -167,4 +167,10 @@ public class Add_Cryptograms extends AppCompatActivity {
         return lsAlphabets;
     }
 
+    public void onReturnClick(View view)
+    {
+        super.onBackPressed();
+    }
+
+
 }

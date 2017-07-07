@@ -42,4 +42,9 @@ public class MainActivity extends AppCompatActivity {
         NextActivity.putExtras(bundle);
         startActivity(NextActivity);
     }
+
+    public void onLogoutClick(View view)
+    {
+        System.exit(0);
+    }
 }

@@ -45,6 +45,6 @@ public class AdminHomePage extends AppCompatActivity {
 
     public void onReturnClick(View view)
     {
-
+        super.onBackPressed();
     }
 }

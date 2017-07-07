@@ -392,11 +392,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public String[] displayCryptograms( int cryptogramID, int limit)
     {
 
-
-        String displyCryptogramQuery = "SELECT * FROM "+TABLE_CRYPTOGRAMS +
+        //For loading more cryptograms.
+        String displyCryptogramQuery1 = "SELECT * FROM "+TABLE_CRYPTOGRAMS +
                 " WHERE " + CRYPTOGRAM_ID + ">" +cryptogramID +
                 " ORDER BY  " +CRYPTOGRAM_ID + " ASC " +
                 " LIMIT " + limit +";" ;
+
+        String displyCryptogramQuery = "SELECT * FROM "+TABLE_CRYPTOGRAMS + ";" ;
 
 
         SQLiteDatabase db = this.getWritableDatabase();
