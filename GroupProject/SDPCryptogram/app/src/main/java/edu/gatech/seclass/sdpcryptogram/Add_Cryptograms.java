@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import edu.gatech.seclass.utilities.ExternalWebService;
+
 
 public class Add_Cryptograms extends AppCompatActivity {
 
@@ -44,6 +47,7 @@ public class Add_Cryptograms extends AppCompatActivity {
         boolean bencodedPhrase = true;
         EditText inputPhrase = (EditText)findViewById(R.id.inputPhrase);
         EditText encodePhrase = (EditText)findViewById(R.id.encodedPhrase);
+        ExternalWebService externalWebService = ExternalWebService.getInstance();
 
         String strinputPhrase = inputPhrase.getText().toString();
         String strencodedPhrase = encodePhrase.getText().toString();
@@ -65,6 +69,12 @@ public class Add_Cryptograms extends AppCompatActivity {
             boolean result = sdpdb.insertDataCryptograms(strencodedPhrase,strinputPhrase);
             if(!result)
             {
+                String ref = externalWebService.addCryptogramService(strinputPhrase,strencodedPhrase);
+                TextView txtWebServiceMessage = (TextView)findViewById(R.id.playerUserName);
+                if(ref != null)
+                    txtWebServiceMessage.setText(ref);
+                else
+                    txtWebServiceMessage.setText("");
                 Toast.makeText(this,"Cryptogram already exists",Toast.LENGTH_SHORT).show();
 
             }
