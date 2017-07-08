@@ -1,4 +1,4 @@
-###**CS6300 Team35 Project User Manual**
+**CS6300 Team35 Project User Manual**
 
 #### **SDPCryptogram App User Manual Version 1.0**
 **1. Login**
