@@ -6,6 +6,7 @@
 When SDPCryptogram is downloaded and opened for the first time, SDPCryptogram Login window is displayed.
 
 User must enter username (admin or player username) in the window and hit the **Log In** button. If entered data is correct, user logs in to the App and choose option viewpoint is displayed.  User could hit **Log Out** button to exit current account.
+
 ![enter image description here](https://lh3.googleusercontent.com/-SKzmgN6jO90/WWAzor_KZQI/AAAAAAAAAYw/QNXQD5_ZOhoGVLPNay-5vHrw68ckvRiOgCLcBGAs/s0/1LogIn.png "1LogIn.png")
 
 
