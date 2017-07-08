@@ -69,17 +69,17 @@ public class Add_Cryptograms extends AppCompatActivity {
             boolean result = sdpdb.insertDataCryptograms(strencodedPhrase,strinputPhrase);
             if(!result)
             {
+                Toast.makeText(this,"Cryptogram already exists",Toast.LENGTH_SHORT).show();
+
+            }
+            else
+            {
                 String ref = externalWebService.addCryptogramService(strinputPhrase,strencodedPhrase);
                 TextView txtWebServiceMessage = (TextView)findViewById(R.id.playerUserName);
                 if(ref != null)
                     txtWebServiceMessage.setText(ref);
                 else
                     txtWebServiceMessage.setText("");
-                Toast.makeText(this,"Cryptogram already exists",Toast.LENGTH_SHORT).show();
-
-            }
-            else
-            {
                 Toast.makeText(this,"Cryptogram successfully added"  ,Toast.LENGTH_SHORT).show();
 
             }
