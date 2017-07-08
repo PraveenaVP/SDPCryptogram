@@ -4,27 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context="edu.gatech.seclass.sdpcryptogram.MainActivity">
-    <!--android:background = "@drawable/bg"-->
 
 
     <Button
         android:id="@+id/logout"
+        style="@android:style/Widget.DeviceDefault.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="62dp"
         android:text="LOG OUT"
         android:textStyle="bold"
         android:visibility="visible"
+        android:onClick="onLogoutClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/login"
-        app:layout_constraintRight_toRightOf="@+id/login"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1" />
 
     <Button
         android:id="@+id/login"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="21dp"

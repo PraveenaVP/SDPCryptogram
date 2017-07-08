@@ -40,6 +40,10 @@ public class Solve_Prior extends AppCompatActivity {
     {
         EditText usertext = (EditText)findViewById(R.id.txtUserSolution);
         boolean result = sdpdb.insertupdateDataPlayer_Games(username,cryptID,cryptogram,usertext.getText().toString(),"S");
+        if(result)
+        {
+            Toast.makeText(this, "Successfully Saved",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -61,6 +65,11 @@ public class Solve_Prior extends AppCompatActivity {
             Toast.makeText(this, "Incorrect Solution",Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+    public void onReturnClick(View view)
+    {
+        super.onBackPressed();
     }
 
 }

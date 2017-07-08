@@ -58,9 +58,19 @@ public class Add_Player extends AppCompatActivity {
             {
                 Toast.makeText(this,"User Name already exists",Toast.LENGTH_SHORT).show();
             }
+            else
+            {
+                Toast.makeText(this,"User Name registered successfully",Toast.LENGTH_SHORT).show();
+
+            }
         }
 
 
 
+    }
+
+    public void onReturnClick(View view)
+    {
+        super.onBackPressed();
     }
 }

@@ -392,17 +392,24 @@ public class DBHelper extends SQLiteOpenHelper {
     public String[] displayCryptograms( int cryptogramID, int limit)
     {
 
-
-        String displyCryptogramQuery = "SELECT * FROM "+TABLE_CRYPTOGRAMS +
+        //For loading more cryptograms.
+        String displyCryptogramQuery1 = "SELECT * FROM "+TABLE_CRYPTOGRAMS +
                 " WHERE " + CRYPTOGRAM_ID + ">" +cryptogramID +
                 " ORDER BY  " +CRYPTOGRAM_ID + " ASC " +
                 " LIMIT " + limit +";" ;
+
+        String displyCryptogramQuery = "SELECT * FROM "+TABLE_CRYPTOGRAMS + ";" ;
 
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cryptogram_cursor = db.rawQuery(displyCryptogramQuery,null);
 
         int count = cryptogram_cursor.getCount();
+        if(count == 0)
+        {
+            db.close();
+            return null;
+        }
         String cryptogram_list[] = new String[count];
         int i = 0;
         if(cryptogram_cursor.moveToFirst())
@@ -515,6 +522,11 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor priorgames_cursor = db.rawQuery(displayPriorGamesQuery,null);
         int count = priorgames_cursor.getCount();
+        if(count == 0)
+        {
+            db.close();
+            return null;
+        }
         String[] priorgames = new String[count+1];
         StringBuffer sb = new StringBuffer();
         sb.append("CryptID");
@@ -587,6 +599,11 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor userratings_cursor = db.rawQuery(displayUserRatingsQuery,null);
 
         int count  = userratings_cursor.getCount();
+        if(count == 0)
+        {
+            db.close();
+            return null;
+        }
         String[] ratinglist = new String[count];
 
                 int i =0;

@@ -33,13 +33,34 @@ public class Solve_Cryptogram extends AppCompatActivity {
     public void onSaveclick(View view)
     {
         EditText usertext = (EditText)findViewById(R.id.txtUserSolution);
+        
+          //Bug fix test case9
+        if(usertext.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "Solution text is empty",Toast.LENGTH_SHORT).show();
+            return;
+
+        }
         boolean result = sdpdb.insertupdateDataPlayer_Games(username,cryptID,cryptogram,usertext.getText().toString(),"S");
+        if(result)
+        {
+            Toast.makeText(this, "Successfully Saved",Toast.LENGTH_SHORT).show();
+
+        }
 
     }
 
     public void onSolveclick(View view){
 
         EditText usertext = (EditText)findViewById(R.id.txtUserSolution);
+        
+          //Bug fix test case9
+        if(usertext.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "Solution text is empty",Toast.LENGTH_SHORT).show();
+            return;
+
+        }
 
         String solution = sdpdb.CryptogramSolution(cryptID,true);
         if(solution.equals(usertext.getText().toString()))
@@ -56,5 +77,11 @@ public class Solve_Cryptogram extends AppCompatActivity {
 
         }
     }
+
+    public void onReturnClick(View view)
+    {
+        super.onBackPressed();
+    }
+
 
 }

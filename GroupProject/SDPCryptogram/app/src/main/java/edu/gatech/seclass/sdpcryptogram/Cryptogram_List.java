@@ -35,10 +35,16 @@ public class Cryptogram_List extends AppCompatActivity {
         setContentView(R.layout.activity_cryptogram__list);
         String[] testdata = sdpdb.displayCryptograms(0,10);
         String[]test = sdpdb.displayCryptogramsWithStatus(0,10,username);
-        ListView cryptList = (ListView)findViewById(R.id.crypt_list);
-        ArrayAdapter<String> cryptlistAdapter = new ArrayAdapter<String>(this,R.layout.cryptogram_list,R.id.list_cryptogram,testdata);
-        cryptList.setAdapter(cryptlistAdapter);
-        cryptList.setOnItemClickListener(new ItemList());
+        if(test != null) {
+            ListView cryptList = (ListView) findViewById(R.id.crypt_list);
+            ArrayAdapter<String> cryptlistAdapter = new ArrayAdapter<String>(this, R.layout.cryptogram_list, R.id.list_cryptogram, testdata);
+            cryptList.setAdapter(cryptlistAdapter);
+            cryptList.setOnItemClickListener(new ItemList());
+        }
+        else
+        {
+            Toast.makeText(this,"No Cryptograms found", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -65,6 +71,10 @@ public class Cryptogram_List extends AppCompatActivity {
         }
     }
 
+    public void onReturnClick(View view)
+    {
+        super.onBackPressed();
+    }
 
 }
 

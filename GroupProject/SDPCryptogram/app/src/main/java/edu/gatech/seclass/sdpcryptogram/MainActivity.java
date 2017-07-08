@@ -27,6 +27,13 @@ public class MainActivity extends AppCompatActivity {
     {
         EditText username = ((EditText)findViewById(R.id.username));
         Intent NextActivity;
+        
+          if(username.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "Please enter a username",Toast.LENGTH_SHORT).show();
+            return;
+
+        }
 
         if(username.getText().toString().contains("admin"))
         {
@@ -41,5 +48,10 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString("username",username.getText().toString());
         NextActivity.putExtras(bundle);
         startActivity(NextActivity);
+    }
+
+    public void onLogoutClick(View view)
+    {
+        System.exit(0);
     }
 }

@@ -53,4 +53,9 @@ public class Player_Home_Page extends AppCompatActivity {
             startActivity(PlayerSelectedActivity);
         }
     }
+
+    public void onReturnClick(View view)
+    {
+        super.onBackPressed();
+    }
 }
