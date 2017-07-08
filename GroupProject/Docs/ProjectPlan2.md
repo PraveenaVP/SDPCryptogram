@@ -1,29 +1,15 @@
-# Project Plan
+## Project Plan Version 2.0
 
 
-**Author**: Team 35,  OMSCS 6300, Summer 2017
-
- <table>
-    <tr>
-        <td>Version</td>
-        <td>Description</td>
-    </tr>
-    <tr>
-        <td>V1</td>
-        <td>Initial Version</td>
-    </tr>
-
-</table>
-
+####**Author: New Team 35 (Combine Team 29 and Team 35),  OMSCS 6300, Summer 2017**
 	
 
-## 1 Introduction
+###**1 Introduction**
 
 The SDP Cryptogram is an application that allows users to practice solving cryptograms and compare their progress. 
 
 
-## 2 Process Description
-
+###**2 Process Description**
 **Users:**
 
 - Administrator
@@ -85,28 +71,24 @@ The SDP Cryptogram is an application that allows users to practice solving crypt
 
 
 
-<br>
-
 ## 3 Team
 
-**3.1**  
-The team consists of 2 individuals from various backgrounds, with diverse skillsets and work experience.
+**3.1 Team Members**  
 
-Tiantian Zhang: <skills description>
+The team consists of 4 individuals from various backgrounds, with diverse skillsets and work experience.
 
-Andrew Angoyar:  <skills descriptions>
+- Tiantian Zhang                
+Email: tzhang386@gatech.edu 
+- Andrew Angoyar              
+Email:aangoyar@gatech.edu 
+- Praveena Panineerkandy
+Email:  pvp7@gatech.edu
+- Ziyan Wang                      
+Email: ziyanwangruc@gmail.com
 
+  
 
-<br>
-
-**3.2 Team Members**
-
-- Tiantian Zhang               tzhang386@gatech.edu 
-- Andrew Angoyar               aangoyar@gatech.edu 
-
-<br>
-
-**3.3 Roles**
+**3.2 Roles**
 
 <table>
   <tr>
@@ -115,16 +97,12 @@ Andrew Angoyar:  <skills descriptions>
   </tr>
 
 <tr>
-    <td>Senior Developer</td>
-    <td>Andrew Angoyar</td> 
-  </tr>
-<tr>
     <td>Developers</td>
-    <td> Tiantian Zhang, Andrew Angoyar </td> 
+    <td> Praveena Panineerkandy, Andrew Angoyar </td> 
   </tr>
 <tr>
     <td>Quality Assurance Testers</td>
-    <td> Tiantian Zhang, Andrew Angoyar</td> 
+    <td> Tiantian Zhang, Ziyan Wang </td> 
   </tr>
 </table>
 <br>
