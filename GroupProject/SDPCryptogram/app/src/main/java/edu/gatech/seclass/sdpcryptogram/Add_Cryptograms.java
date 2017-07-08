@@ -117,6 +117,8 @@ public class Add_Cryptograms extends AppCompatActivity {
 
         return String.valueOf(outputAsCharArray);
     }
+
+
     public static int ReturnNext(boolean isEncode,List<Integer> lsAlphabets,int currentvalue, int shift_digit)
     {
         int next = 0;
