@@ -1,12 +1,14 @@
-# Use Case Model Version 1.0
+# Use Case Model Version 2.0
 ##**Author: Team 35**
 
 ## 1 Use Case Diagram
-![enter image description here](https://lh3.googleusercontent.com/-Cjdymf33Atc/WVb1X-Z-GfI/AAAAAAAAATg/-i3077-Vq9IoSgzKhnHGWOAT18egyfeYACLcBGAs/s0/Use+Case+Diagram.jpg "Use Case Diagram.jpg")
+![enter image description here](https://lh3.googleusercontent.com/-sd9BnsTuPjw/WWAM2vZbMZI/AAAAAAAAAYY/Bl4c4UH-NTA28fmGF00AucYZvW7tVXVaACLcBGAs/s0/Use+Case+Diagram.jpg "Use Case Diagram.jpg")
 ## 2 Use Case Descriptions
-**Manage Cryptogram**
+**Choose Administrator Option**
 
-- Requirements: Must allow the Administrator to manage the cryptograms 
+- Requirements: Must allow the Administrator to choose Register Player or Manage Cryptogram Option
+ 
+**Manage Cryptogram**
 
 - Pre-conditions: 
 1. Administrator must have launched the app
