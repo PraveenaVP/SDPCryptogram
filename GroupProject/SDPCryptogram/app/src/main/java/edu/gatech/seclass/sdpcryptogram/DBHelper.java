@@ -570,7 +570,7 @@ public class DBHelper extends SQLiteOpenHelper {
         sb0.append("Status");
         sb0.append(":");
         sb0.append("   ");
-        sb0.append("#Incorrect");
+        sb0.append("Incorrect attempts ");
         sb0.append(":");
         sb0.append("   ");
 
@@ -760,91 +760,148 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public  String[] displayAllUserRatings() {
 
-        String[] alluser = null ;
-        String displayUserRatingsQuery = "SELECT " + PLAYER_GAMES_PLAYER_USERNAME + ","+ PLAYER_GAMES_STATUS+ ", COUNT(" + PLAYER_GAMES_STATUS + ") AS RATINGS " +
-                                         " FROM "+ TABLE_PLAYER_GAMES +
-                                         " GROUP BY "+PLAYER_GAMES_PLAYER_USERNAME+","+PLAYER_GAMES_STATUS+" ORDER BY "+PLAYER_GAMES_STATUS +", COUNT ("+PLAYER_GAMES_STATUS+") DESC";
+        DropTemp();
+        StringBuilder sb1 = new StringBuilder();
+        sb1.append("CREATE TABLE TEMP1 AS ");
+        sb1.append(" SELECT ");
+        sb1.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb1.append(" ,COUNT(");
+        sb1.append(PLAYER_GAMES_STATUS);
+        sb1.append(") AS CORRECT  FROM ");
+        sb1.append(TABLE_PLAYER_GAMES);
+        sb1.append(" WHERE ");
+        sb1.append(PLAYER_GAMES_STATUS);
+        sb1.append(" = 'C' GROUP BY  ");
+        sb1.append(PLAYER_GAMES_PLAYER_USERNAME);
 
+        StringBuilder sb2 = new StringBuilder();
+        sb2.append("CREATE TABLE TEMP2 AS ");
+        sb2.append(" SELECT ");
+        sb2.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb2.append(" ,COUNT(");
+        sb2.append(PLAYER_GAMES_STATUS);
+        sb2.append(") AS INCORRECT  FROM ");
+        sb2.append(TABLE_PLAYER_GAMES);
+        sb2.append(" WHERE ");
+        sb2.append(PLAYER_GAMES_STATUS);
+        sb2.append(" = 'I' GROUP BY  ");
+        sb2.append(PLAYER_GAMES_PLAYER_USERNAME);
+
+
+
+        StringBuilder sb3 = new StringBuilder();
+        sb3.append("CREATE TABLE TEMP3 AS ");
+        sb3.append(" SELECT ");
+        sb3.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb3.append(" ,COUNT(");
+        sb3.append(PLAYER_GAMES_STATUS);
+        sb3.append(") AS STARTED  FROM ");
+        sb3.append(TABLE_PLAYER_GAMES);
+        sb3.append(" WHERE ");
+        sb3.append(PLAYER_GAMES_STATUS);
+        sb3.append(" = 'S' GROUP BY  ");
+        sb3.append(PLAYER_GAMES_PLAYER_USERNAME);
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor userratings_cursor = db.rawQuery(displayUserRatingsQuery,null);
-        int i = 0;
+
+
+        try
+        {
+            db.execSQL(sb1.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error creating table temp1 for ratings");
+        }
+        try
+        {
+            db.execSQL(sb2.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error creating table temp2 for ratings");
+        }
+        try
+        {
+            db.execSQL(sb3.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error creating table temp3 for ratings");
+        }
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT TEMP1.");
+        sb.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb.append(",TEMP1.CORRECT,TEMP2.INCORRECT, TEMP3.STARTED ");
+        sb.append(" FROM TEMP1 LEFT JOIN TEMP2 ON ");
+        sb.append("TEMP1.");
+        sb.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb.append(" = ");
+        sb.append("TEMP2.");
+        sb.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb.append("  LEFT JOIN TEMP3 ON ");
+        sb.append("TEMP1.");
+        sb.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb.append(" = ");
+        sb.append("TEMP3.");
+        sb.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb.append(";");
+
+
+
+        Cursor userratings_cursor = db.rawQuery(sb.toString(),null);
+        int count  = userratings_cursor.getCount();
+        String[] alluser = new String[count+1];
+        StringBuilder sb_header = new StringBuilder();
+        sb_header.append("Username");
+        sb_header.append(" :        ");
+        sb_header.append("Correct");
+        sb_header.append(" : ");
+        sb_header.append("Incorrect");
+        sb_header.append(" : ");
+        sb_header.append("Started");
+        sb_header.append(" :");
+        alluser[0] = sb_header.toString();
+
+        int i = 1;
         if(userratings_cursor.moveToFirst())
         {
-            alluser = new String[userratings_cursor.getCount()];
-            StringBuilder sb = new StringBuilder(); ;
 
             do{
+                StringBuilder sb_row = new StringBuilder();
+                sb_row.append(userratings_cursor.getString(0));
+                sb_row.append(" :        ");
 
-                    String user_current = userratings_cursor.getColumnName(0);
-                    if(!sb.toString().contains(user_current)) {
+                String correct = userratings_cursor.getString(1);
+                if(correct != null && !correct.equals(""))
+                    sb_row.append(correct);
+                else
+                    sb_row.append("0");
+                sb_row.append("         ");
 
-                        sb.append("   Username:  ");
-                        sb.append(user_current);
+                String incorrect = userratings_cursor.getString(2);
+                if(incorrect != null && !incorrect.equals(""))
+                    sb_row.append(incorrect);
+                else
+                    sb_row.append("0");
+                sb_row.append("         ");
 
-                    }
-                    else
-                    {
-
-                    }
-
-                char retrieve_status1 =userratings_cursor.getString(1).charAt(0);
-                        if(retrieve_status1 == 'C')
-                        {
-                            sb.append("   Correct:   ");
-                            sb.append(userratings_cursor.getString(2));
-                        }
-                        else if(retrieve_status1 == 'I')
-                        {
-                            sb.append("    InCorrect:   ");
-                            sb.append(userratings_cursor.getString(2));                        }
-                        else if(retrieve_status1 == 'S')
-                        {
-                            sb.append("   Started:   ");
-                            sb.append(userratings_cursor.getString(2));                        }
-
-                userratings_cursor.moveToNext();
-                char retrieve_status2 =userratings_cursor.getString(1).charAt(0);
-                        if(retrieve_status2 == 'C')
-                        {
-                            sb.append("   Correct:   ");
-                            sb.append(userratings_cursor.getString(2));
-                        }
-                        else if(retrieve_status2 == 'I')
-                        {
-                            sb.append("   InCorrect:   ");
-                            sb.append(userratings_cursor.getString(2));                        }
-                        else if(retrieve_status2 == 'S')
-                        {
-                            sb.append("   Started:   ");
-                            sb.append(userratings_cursor.getString(2));                        }
-
-                userratings_cursor.moveToNext();
-                char retrieve_status3 =userratings_cursor.getString(1).charAt(0);
-                        if(retrieve_status3 == 'C')
-                        {
-                            sb.append("   Correct:   ");
-                            sb.append(userratings_cursor.getString(2));
-                        }
-                        else if(retrieve_status3 == 'I')
-                        {
-                            sb.append("   InCorrect:   ");
-                            sb.append(userratings_cursor.getString(2));                        }
-                        else if(retrieve_status3 == 'S')
-                        {
-                            sb.append("   Started:   ");
-                            sb.append(userratings_cursor.getString(2));                        }
+                String started = userratings_cursor.getString(3);
+                if(started != null && !started.equals(""))
+                    sb_row.append(started);
+                else
+                    sb_row.append("0");
+                sb_row.append("         ");
 
 
-
-
-                alluser[i] = sb.toString();
-                i = i + 1;
-                sb = new StringBuilder();
-
+                alluser[i] = sb_row.toString();
+                i = i +1;
            }
             while(userratings_cursor.moveToNext());
         }
+        DropTemp();
         db.close();
         return alluser;
     }
