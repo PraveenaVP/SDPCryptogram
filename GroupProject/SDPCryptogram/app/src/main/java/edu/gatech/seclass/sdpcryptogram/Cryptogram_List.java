@@ -22,10 +22,14 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import edu.gatech.seclass.utilities.Cryptograms;
+
 public class Cryptogram_List extends AppCompatActivity {
 
     DBHelper sdpdb ;
     String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +37,12 @@ public class Cryptogram_List extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         username= bundle.getString("username");
         setContentView(R.layout.activity_cryptogram__list);
-        String[] testdata = sdpdb.displayCryptograms(0,10);
-        String[]test = sdpdb.displayCryptogramsWithStatus(username);
-        if(test != null) {
-            ListView cryptList = (ListView) findViewById(R.id.crypt_list);
-            ArrayAdapter<String> cryptlistAdapter = new ArrayAdapter<String>(this, R.layout.cryptogram_list, R.id.list_cryptogram, test);
-            cryptList.setAdapter(cryptlistAdapter);
+        ArrayList<Cryptograms> getCryptograms= sdpdb.displayCryptogramsWithStatus1(username);
+        ListView cryptList = (ListView) findViewById(R.id.crypt_list);
+        if(getCryptograms != null) {
+
+            CryptogramAdapter cryptogramAdapter = new CryptogramAdapter(this,R.layout.cryptogram_list,getCryptograms);
+            cryptList.setAdapter(cryptogramAdapter);
             cryptList.setOnItemClickListener(new ItemList());
         }
         else
@@ -48,14 +52,67 @@ public class Cryptogram_List extends AppCompatActivity {
 
     }
 
+    public class CryptogramAdapter extends ArrayAdapter<Cryptograms>
+    {
+        private Context mcontext;
+        private int mresource;
+        /**
+         * Constructor
+         *
+         * @param context  The current context.
+         * @param resource The resource ID for a layout file containing a TextView to use when
+         *                 instantiating views.
+         * @param objects  The objects to represent in the ListView.
+         */
+        public CryptogramAdapter(@NonNull Context context, @LayoutRes int resource,
+                                 @NonNull ArrayList<Cryptograms> objects) {
+            super(context, resource, objects);
+            mcontext = context;
+            mresource = resource;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+            String id = getItem(position).getId();
+            String cryptogram = getItem(position).getCryptogram();
+            String status = getItem(position).getStatus();
+            String incorrectcount = getItem(position).getIncorrectcount();
+
+            Cryptograms addCryptogram = new Cryptograms(id,cryptogram,status,incorrectcount);
+
+            LayoutInflater inflator = LayoutInflater.from(mcontext);
+            convertView = inflator.inflate(mresource,parent,false);
+
+            TextView tvID = (TextView)convertView.findViewById(R.id.tvid);
+            TextView tvpuzzle = (TextView)convertView.findViewById(R.id.tvcrypt);
+            TextView tvstatus = (TextView)convertView.findViewById(R.id.tvstatus);
+            TextView tvincorrect = (TextView)convertView.findViewById(R.id.tvincorrect);
+
+            tvID.setText(id);
+            tvpuzzle.setText(cryptogram);
+            tvstatus.setText(status);
+            if(incorrectcount == null)
+            {
+                incorrectcount = "0";
+            }
+            tvincorrect.setText(incorrectcount);
+
+            return  convertView;
+        }
+    }
+
+
+
+
     class ItemList implements AdapterView.OnItemClickListener {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             ViewGroup viewg=(ViewGroup)view;
-            TextView crypt_text=(TextView)viewg.findViewById(R.id.list_cryptogram);
-            String selected  = crypt_text.getText().toString();
-            int index = selected.indexOf(':');
-            int cryptID = Integer.parseInt (selected.substring(0,index));
-            String crypt  = sdpdb.CryptogramSolution(cryptID,false);
+            TextView tvcryptID=(TextView)viewg.findViewById(R.id.tvid);
+            TextView tvcrypt=(TextView)viewg.findViewById(R.id.tvcrypt);
+            int cryptID = Integer.parseInt (tvcryptID.getText().toString());
+            String crypt  = tvcrypt.getText().toString();
 
             Intent newIntent = new Intent(Cryptogram_List.this, Solve_Cryptogram.class);
 
