@@ -6,183 +6,128 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.TextView;
+import android.text.TextUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import edu.gatech.seclass.utilities.ExternalWebService;
 
 
 public class Add_Cryptograms extends AppCompatActivity {
+    public static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+    boolean checkValidMessage;
+    boolean encoded;
 
     DBHelper sdpdb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add__cryptograms);
-        sdpdb  = new DBHelper(this);
+        sdpdb = new DBHelper(this);
     }
 
-    public void onEncodeClick(View view)
-    {
-        boolean binputPhrase = true;
-        EditText inputPhrase = (EditText)findViewById(R.id.inputPhrase);
-        EditText encodePhrase = (EditText)findViewById(R.id.encodedPhrase);
+    public void onEncodeClick(View view) {
 
-        String strinputPhrase = inputPhrase.getText().toString();
-        if(strinputPhrase.length() == 0)
-        {
-            binputPhrase = false;
-            Toast.makeText(this,"Input Phrase is empty",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(binputPhrase) {
-            String encode = CasearsCipher(strinputPhrase,1,true);
-            encodePhrase.setText(encode);
-        }
-    }
 
-    public void onSaveClick(View view)
-    {
-        boolean binputPhrase  = true;
-        boolean bencodedPhrase = true;
-        EditText inputPhrase = (EditText)findViewById(R.id.inputPhrase);
-        EditText encodePhrase = (EditText)findViewById(R.id.encodedPhrase);
+        EditText txt = (EditText) findViewById(R.id.inputPhrase);
+        String inputMessage = String.valueOf(txt.getText().toString());
+        EditText number = (EditText) findViewById(R.id.shiftNumber);
+        int shiftNumber = 0;
+        EditText returntxt = (EditText) findViewById(R.id.encodedPhrase);
+
+
+        checkValidMessage = false;
+
+        for (int i = 0; i < inputMessage.length(); i++) {
+            if (Character.isLetter(inputMessage.charAt(i))) {
+                checkValidMessage = true;
+            }
+        }
+        if (TextUtils.isEmpty(inputMessage)||!checkValidMessage){
+            txt.setError("Invalid Message");
+        }
+
+
+        if (TextUtils.isEmpty(String.valueOf(number.getText().toString()))) {
+            number.setError("Invalid Shift Number");
+        }
+        else {
+            shiftNumber = Integer.parseInt(number.getText().toString());
+        }
+
+        if(shiftNumber<=0 || shiftNumber>=26){
+            number.setError("Invalid Shift Number");
+
+        }else {
+            String encode = CasearsCipher(inputMessage, shiftNumber);
+            returntxt.setText(encode);
+
+            }
+        }
+
+
+
+    public void onSaveClick(View view) {
+
+        EditText inputPhrase = (EditText) findViewById(R.id.inputPhrase);
+        EditText encodePhrase = (EditText) findViewById(R.id.encodedPhrase);
         ExternalWebService externalWebService = ExternalWebService.getInstance();
 
         String strinputPhrase = inputPhrase.getText().toString();
         String strencodedPhrase = encodePhrase.getText().toString();
+        TextView txtWebServiceMessage = (TextView) findViewById(R.id.message);
 
-        if(strinputPhrase.length() == 0)
+
+       if (strinputPhrase.length() == 0 || strinputPhrase == null)
         {
-            binputPhrase = false;
-            Toast.makeText(this,"Input Phrase is empty",Toast.LENGTH_SHORT).show();
-            return;
+            txtWebServiceMessage.setText("Input Phrase is empty");
+
         }
-        if(strencodedPhrase.length() == 0)
-        {
-            bencodedPhrase = false;
-            Toast.makeText(this,"Encoded Phrase is empty",Toast.LENGTH_SHORT).show();
-            return;
+        if (strencodedPhrase.length() == 0 || strencodedPhrase == null) {
+            txtWebServiceMessage.setText("Encoded Phrase is empty");
         }
-        if(bencodedPhrase && binputPhrase)
+
+        if ((strinputPhrase.length() != 0) && strencodedPhrase.length() != 0)
         {
-            boolean result = sdpdb.insertDataCryptograms(strencodedPhrase,strinputPhrase);
-            if(!result)
-            {
-                Toast.makeText(this,"Cryptogram already exists",Toast.LENGTH_SHORT).show();
+            boolean result = sdpdb.insertDataCryptograms(strencodedPhrase, strinputPhrase);
+                if (!result) {
+                    txtWebServiceMessage.setText("Cryptogram already exists");
 
-            }
-            else
-            {
-                String ref = externalWebService.addCryptogramService(strinputPhrase,strencodedPhrase);
-                TextView txtWebServiceMessage = (TextView)findViewById(R.id.playerUserName);
-                if(ref != null)
-                    txtWebServiceMessage.setText(ref);
-                else
-                    txtWebServiceMessage.setText("");
-                Toast.makeText(this,"Cryptogram successfully added"  ,Toast.LENGTH_SHORT).show();
-
-            }
-        }
-    }
-
-    public static  String CasearsCipher(String input,int shift_digit, boolean isEncode)
-    {
-        //Creates an arrays with ASCII values of lower and upper case alphabets
-        List<Integer> uppercase = FillArray(65,90,1);
-        List<Integer> lowercase = FillArray(97,122,1);
-
-        //Converts the string to a char array
-        char[] inputAsCharArray = input.toCharArray();
-        //length of input message
-        int inputLength = inputAsCharArray.length;
-        //Creates an output array of same size
-        char[] outputAsCharArray = new char[inputLength];
-
-        //loops through every input character
-        for(int i =0;i <inputLength;i++ )
-        {
-            char c = inputAsCharArray[i];
-            //Checks for character is alphabet
-            if(Character.isLetter(c))
-            {
-                //Checks for character is lower case alphabet
-                if(Character.isLowerCase(c)) {
-                    outputAsCharArray[i] = (char)ReturnNext(isEncode, lowercase,(int)c ,shift_digit);
-                }
-                //Checks for character is upper case alphabet
-                else if(Character.isUpperCase(c))
-                {
-                    outputAsCharArray[i] = (char)ReturnNext(isEncode, uppercase,(int)c ,shift_digit);
+                } else {
+                    String ref = externalWebService.addCryptogramService(strinputPhrase, strencodedPhrase);
+                    if (ref != null)
+                        txtWebServiceMessage.setText("Saved & Identifier is " + ref);
 
                 }
-
-            }
-            //else use the same character in output
-            else
-            {
-                outputAsCharArray[i] = inputAsCharArray[i];
             }
         }
 
-        return String.valueOf(outputAsCharArray);
-    }
 
 
-    public static int ReturnNext(boolean isEncode,List<Integer> lsAlphabets,int currentvalue, int shift_digit)
-    {
-        int next = 0;
-        //gets the length of alphabets array
-        int len = lsAlphabets.size();
-        //gets the index of current character
-        int indexCurrent = lsAlphabets.indexOf(currentvalue);
 
-        //encode
-        if(isEncode)
-        {
-            //calculates the index
-            next = indexCurrent-shift_digit;
-            //for circular indexing
-            if (next < 0)
-            {
-                next = len+(indexCurrent-shift_digit);
-            }
+    public static String CasearsCipher(String input, int number) {
+        String inputMsg = input.toLowerCase();
+        String resultMessage = "";
 
-        }
-        else
-        {
-            //calculates the index
-            next = indexCurrent+shift_digit;
-            //for circular indexing
-            if(next >= len)
-            {
-                next = (indexCurrent+shift_digit)-len;
+
+        if (number > 0 && number < 26) {
+
+            for (int i = 0; i < inputMsg.length(); i++) {
+                if (ALPHABET.indexOf(inputMsg.charAt(i)) > -1) {
+                    int charPosition = ALPHABET.indexOf(inputMsg.charAt(i));
+                    int keyval = (number + charPosition) % 26;
+                    char replaceVal = ALPHABET.charAt(keyval);
+                    if (input.charAt(i) - inputMsg.charAt(i) < 0)
+                        resultMessage += Character.toUpperCase(replaceVal);
+                    else
+                        resultMessage += replaceVal;
+                } else {
+                    resultMessage += inputMsg.charAt(i);
+                }
             }
         }
-
-        //returns the ASCII value of result character
-        return lsAlphabets.get(next);
+        return resultMessage;
     }
-
-    //Creates the array for alphabtes(lower and upper cases)
-    public static List<Integer> FillArray(int start,int stop, int increment)
-    {
-        int size = stop-start+1;
-        List<Integer> lsAlphabets = new ArrayList<Integer>();
-        int[] array = new int[size];
-        start = start-1;
-        for(int k = 0; k < array.length; k++) {
-            start = start + increment;
-            lsAlphabets.add(start);
-        }
-
-        return lsAlphabets;
-    }
-
-    public void onReturnClick(View view)
-    {
-        super.onBackPressed();
-    }
-
 
 }
+
+

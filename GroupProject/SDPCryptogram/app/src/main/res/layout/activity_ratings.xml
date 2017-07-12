@@ -85,16 +85,4 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
 
-    <Button
-        android:id="@+id/btnReturn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onReturnClick"
-        android:text="RETURN"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="38dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="81dp" />
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,5 @@
 package edu.gatech.seclass.sdpcryptogram;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +22,7 @@ public class Add_Player extends AppCompatActivity {
     {
         EditText firstname = (EditText)findViewById(R.id.playerFirstName);
         EditText lastname = (EditText)findViewById(R.id.playerLastName);
-        EditText username = (EditText)findViewById(R.id.playerUserName);
+        EditText username = (EditText)findViewById(R.id.message);
 
         boolean bfirstName = true;
         boolean  blastName = true;

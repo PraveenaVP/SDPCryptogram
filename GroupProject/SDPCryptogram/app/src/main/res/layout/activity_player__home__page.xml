@@ -10,9 +10,11 @@
     <Button
         android:id="@+id/playerSubmitButton"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="88dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="60dp"
         android:onClick="onSubmit"
         android:text="Submit"
         android:textStyle="bold"
@@ -21,18 +23,16 @@
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintHorizontal_bias="0.206" />
+        tools:layout_constraintRight_creator="1" />
 
     <MultiAutoCompleteTextView
         android:id="@+id/multiAutoCompleteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
-        android:background="#239B56"
         android:text="Choose Player Option"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="#FDFFFC"
+        android:textColor="#E67E22"
         android:textSize="20sp"
         android:textStyle="bold"
         tools:layout_constraintLeft_creator="1"
@@ -115,22 +115,6 @@
 
 
     </RadioGroup>
-
-    <Button
-        android:id="@+id/btnReturn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onReturnClick"
-        android:text="RETURN"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/playerSubmitButton"
-        android:layout_marginEnd="54dp"
-        app:layout_constraintRight_toRightOf="@+id/rbgPlayerOptions"
-        app:layout_constraintTop_toTopOf="@+id/playerSubmitButton"
-        android:layout_marginRight="54dp"
-        app:layout_constraintVertical_bias="1.0" />
 
 
 </android.support.constraint.ConstraintLayout>
