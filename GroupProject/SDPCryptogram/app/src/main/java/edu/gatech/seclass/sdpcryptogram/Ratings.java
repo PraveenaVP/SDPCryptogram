@@ -40,42 +40,21 @@ public class Ratings extends AppCompatActivity {
         ListView ratingsList = (ListView) findViewById(R.id.ratings_listview);
         ArrayList<edu.gatech.seclass.utilities.Ratings> getRatings= sdpdb.displayAllUserRatings1();
 
-        RatingsAdpater ratingsAdapter =  new RatingsAdpater(this,R.layout.ratings, getRatings);
-        ratingsList.setAdapter(ratingsAdapter);
-//        String[] test = sdpdb.displayAllUserRatings();
-//        if(test != null) {
-//            ListView ratingsList = (ListView) findViewById(R.id.ratings_listview);
-//            ArrayAdapter<String> ratingslistAdapter = new ArrayAdapter<String>(this, R.layout.ratings, R.id.ratings_xml, test);
-//            ratingsList.setAdapter(ratingslistAdapter);
-//            ratingsList.setOnItemClickListener(new RatingsList());
-//        }
-//        else
-//        {
-//            Toast.makeText(this,"No Records Found !!..",Toast.LENGTH_SHORT);
-//            return;
-//        }
+        if(getRatings != null) {
+            RatingsAdpater ratingsAdapter = new RatingsAdpater(this, R.layout.ratings, getRatings);
+            ratingsList.setAdapter(ratingsAdapter);
+        }
+        else
+        {
+            Toast.makeText(this,"No Records Found !!..",Toast.LENGTH_SHORT);
+            return;
+        }
 
 
     }
 
 
-//    class RatingsList implements AdapterView.OnItemClickListener {
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            ViewGroup viewg = (ViewGroup) view;
-//            TextView prior_text = (TextView) viewg.findViewById(R.id.ratings_xml);
-//            String selected = prior_text.getText().toString();
-//
-//            String[] userselectedlist = selected.split("\\s*:\\s*");
-//            String userName = userselectedlist[0].toString();
-//
-//
-//            Toast.makeText(Ratings.this,"Ratings of user",Toast.LENGTH_SHORT).show();
-//
-//
-//
-//
-//        }
-//    }
+
 
 
 
