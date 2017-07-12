@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import edu.gatech.seclass.utilities.Ratings;
+import edu.gatech.seclass.utilities.Cryptograms;
 import java.util.EmptyStackException;
 import java.util.List;
 import java.util.HashMap;
@@ -607,6 +608,154 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
             }while(cryptogram_cursor1.moveToNext());
+            {
+
+            }
+        }
+        else
+        {
+            //Exception
+        }
+        DropTemp();
+        db.close();
+        return cryptogram_list;
+    }
+
+
+    public ArrayList<Cryptograms> displayCryptogramsWithStatus1(String username)
+    {
+
+
+        StringBuilder sb1 = new StringBuilder();
+        //sb1.append("DROP TABLE IF EXISTS TEMP1; ");
+        sb1.append("CREATE TABLE TEMP1 AS ");
+        sb1.append("SELECT DISTINCT ");
+        sb1.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb1.append(",");
+        sb1.append(PLAYER_GAMES_CRYPTOGRAM_TEXT);
+        sb1.append(", ");
+        sb1.append("CASE ");
+        sb1.append(PLAYER_GAMES_STATUS);
+        sb1.append(" WHEN 'C' THEN 'SOLVED' ELSE 'INPROCESS' END AS GAME_STATUS ");
+        sb1.append("FROM ");
+        sb1.append(TABLE_PLAYER_GAMES );
+        sb1.append(" WHERE ");
+        sb1.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb1.append("='");
+        sb1.append(username);
+        sb1.append("' GROUP BY ");
+        sb1.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb1.append(" ; ");
+
+
+        StringBuilder sb2 = new StringBuilder();
+        //sb1.append("DROP TABLE IF EXISTS TEMP2; ");
+        sb2.append("CREATE TABLE TEMP2 AS ");
+        sb2.append("SELECT DISTINCT ");
+        sb2.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb2.append(",");
+        sb2.append(PLAYER_GAMES_CRYPTOGRAM_TEXT);
+        sb2.append(",");
+        sb2.append("COUNT(");
+        sb2.append(PLAYER_GAMES_STATUS);
+        sb2.append(")  AS INCORRECT_COUNT ");
+        sb2.append("FROM ");
+        sb2.append(TABLE_PLAYER_GAMES);
+        sb2.append(" WHERE ");
+        sb2.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb2.append("='");
+        sb2.append(username);
+        sb2.append("' AND ");
+        sb2.append(PLAYER_GAMES_STATUS);
+        sb2.append(" = 'I'  GROUP BY ");
+        sb2.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb2.append(" ; ");
+        //sb1.append("DROP TABLE IF EXISTS TEMP3; ");
+
+        StringBuilder sb3 = new StringBuilder();
+        sb3.append("CREATE TABLE TEMP3 AS ");
+        sb3.append("SELECT TEMP1.");
+        sb3.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb3.append(" , TEMP1.");
+        sb3.append(PLAYER_GAMES_CRYPTOGRAM_TEXT);
+        sb3.append(",TEMP1.GAME_STATUS,TEMP2.INCORRECT_COUNT ");
+        sb3.append("FROM TEMP1 LEFT JOIN TEMP2 ON ");
+        sb3.append("TEMP1.");
+        sb3.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb3.append(" = TEMP2.");
+        sb3.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb3.append("; ");
+
+        //sb1.append("DROP TABLE IF EXISTS TEMP4; ");
+        StringBuilder sb4 = new StringBuilder();
+        sb4.append("CREATE TABLE TEMP4 AS ");
+        sb4.append(" SELECT ");
+        sb4.append(CRYPTOGRAM_ID);
+        sb4.append(",");
+        sb4.append(CRYPTOGRAM);
+        sb4.append(", 'UNATTEMPTED' AS GAMES_STATUS,'' AS INCORRECT_COUNT FROM ");
+        sb4.append(TABLE_CRYPTOGRAMS);
+        sb4.append(" WHERE ");
+        sb4.append(CRYPTOGRAM_ID);
+        sb4.append(" NOT IN(SELECT ");
+        sb4.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb4.append(" FROM TEMP3 ); ");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT * FROM TEMP3 UNION SELECT * FROM TEMP4; ");
+
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+            db.execSQL(sb1.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.print("Error creating Temp1");
+        }
+        try {
+            db.execSQL(sb2.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.print("Error creating Temp2");
+        }
+        try {
+            db.execSQL(sb3.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.print("Error creating Temp3");
+        }
+        try {
+            db.execSQL(sb4.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.print("Error creating Temp4");
+        }
+
+
+        Cursor cryptogram_cursor = db.rawQuery(sb.toString(),null);
+        ArrayList<Cryptograms> cryptogram_list = new ArrayList<>();
+
+        if(cryptogram_cursor.moveToFirst())
+        {
+            do{
+                String id = cryptogram_cursor.getString(0);
+                String cryptogram = cryptogram_cursor.getString(1);
+                String status = cryptogram_cursor.getString(2);
+                String incorrect = cryptogram_cursor.getString(3);
+                if(incorrect == null || incorrect.equals(""))
+                    incorrect = "0";
+                Cryptograms addCryptogram = new Cryptograms(id,cryptogram,status,incorrect);
+                cryptogram_list.add(addCryptogram);
+
+
+
+            }while(cryptogram_cursor.moveToNext());
             {
 
             }
