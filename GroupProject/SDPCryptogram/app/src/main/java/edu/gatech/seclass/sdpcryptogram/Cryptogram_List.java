@@ -76,10 +76,6 @@ public class Cryptogram_List extends AppCompatActivity {
         onBackPressed();
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
 
 }
 
