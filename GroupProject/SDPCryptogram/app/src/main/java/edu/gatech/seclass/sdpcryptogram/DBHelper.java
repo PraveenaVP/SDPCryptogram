@@ -5,14 +5,20 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.Settings;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import edu.gatech.seclass.utilities.Ratings;
 import java.util.EmptyStackException;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
+import edu.gatech.seclass.utilities.*;
 
 
 /**
@@ -901,6 +907,187 @@ public class DBHelper extends SQLiteOpenHelper {
            }
             while(userratings_cursor.moveToNext());
         }
+        DropTemp();
+        db.close();
+        return alluser;
+    }
+
+
+
+
+    /**
+     * Retrieve  ratings of all users
+     * TODO
+     */
+    public  ArrayList<Ratings> displayAllUserRatings1() {
+
+        DropTemp();
+        StringBuilder sb1 = new StringBuilder();
+        sb1.append("CREATE TABLE TEMP1 AS ");
+        sb1.append(" SELECT ");
+        sb1.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb1.append(" ,COUNT(");
+        sb1.append(PLAYER_GAMES_STATUS);
+        sb1.append(") AS CORRECT  FROM ");
+        sb1.append(TABLE_PLAYER_GAMES);
+        sb1.append(" WHERE ");
+        sb1.append(PLAYER_GAMES_STATUS);
+        sb1.append(" = 'C' GROUP BY  ");
+        sb1.append(PLAYER_GAMES_PLAYER_USERNAME);
+
+        StringBuilder sb2 = new StringBuilder();
+        sb2.append("CREATE TABLE TEMP2 AS ");
+        sb2.append(" SELECT ");
+        sb2.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb2.append(" ,COUNT(");
+        sb2.append(PLAYER_GAMES_STATUS);
+        sb2.append(") AS INCORRECT  FROM ");
+        sb2.append(TABLE_PLAYER_GAMES);
+        sb2.append(" WHERE ");
+        sb2.append(PLAYER_GAMES_STATUS);
+        sb2.append(" = 'I' GROUP BY  ");
+        sb2.append(PLAYER_GAMES_PLAYER_USERNAME);
+
+
+
+        StringBuilder sb3 = new StringBuilder();
+        sb3.append("CREATE TABLE TEMP3 AS ");
+        sb3.append(" SELECT ");
+        sb3.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb3.append(" ,COUNT(");
+        sb3.append(PLAYER_GAMES_STATUS);
+        sb3.append(") AS STARTED  FROM ");
+        sb3.append(TABLE_PLAYER_GAMES);
+        sb3.append(" WHERE ");
+        sb3.append(PLAYER_GAMES_STATUS);
+        sb3.append(" = 'S' GROUP BY  ");
+        sb3.append(PLAYER_GAMES_PLAYER_USERNAME);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        try
+        {
+            db.execSQL(sb1.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error creating table temp1 for ratings");
+        }
+        try
+        {
+            db.execSQL(sb2.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error creating table temp2 for ratings");
+        }
+        try
+        {
+            db.execSQL(sb3.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error creating table temp3 for ratings");
+        }
+
+
+        String sb_Temp1 = "SELECT * FROM TEMP1;";
+        String sb_Temp2 = "SELECT * FROM TEMP2;";
+        String sb_Temp3 = "SELECT * FROM TEMP3;";
+
+        Cursor temp1 = db.rawQuery(sb_Temp1,null);
+        Cursor temp2 = db.rawQuery(sb_Temp2,null);
+        Cursor temp3 = db.rawQuery(sb_Temp3,null);
+
+        ArrayList<Ratings>alluser = new ArrayList<>();
+        List<String> lsusernames = new ArrayList<>();
+        Map<String,String> hsTemp1 = new HashMap<String,String>();
+        Map<String,String> hsTemp2 = new HashMap<String,String>();
+        Map<String,String> hsTemp3 = new HashMap<String,String>();
+
+
+        if(temp1.moveToFirst())
+        {
+            do{
+                String username = temp1.getString(0);
+                if(!lsusernames.contains(username))
+                {
+                    lsusernames.add(username);
+                }
+                String correct = temp1.getString(1);
+                if(correct == null && correct.equals("")){
+                    correct = "0";}
+                hsTemp1.put(username,correct);
+            }
+            while(temp1.moveToNext());
+        }
+        if(temp2.moveToFirst())
+        {
+            do{
+                String username = temp2.getString(0);
+                if(!lsusernames.contains(username))
+                {
+                    lsusernames.add(username);
+                }
+                String incorrect = temp2.getString(1);
+                if(incorrect == null && incorrect.equals("")){
+                    incorrect = "0";}
+                hsTemp2.put(username,incorrect);
+            }
+            while(temp2.moveToNext());
+        }
+        if(temp3.moveToFirst())
+        {
+            do{
+                String username = temp3.getString(0);
+                if(!lsusernames.contains(username))
+                {
+                    lsusernames.add(username);
+                }
+                String started = temp3.getString(1);
+               if(started == null && started.equals("")){
+                    started = "0";}
+                hsTemp3.put(username,started);
+            }
+            while(temp3.moveToNext());
+        }
+
+        for(String username: lsusernames)
+        {
+            String correct = "0";
+            String incorrect = "0";
+            String started = "0";
+
+            try {
+                 correct = hsTemp1.get(username);
+              }
+            catch (Exception e)
+            {
+
+            }
+            try {
+                incorrect = hsTemp2.get(username);
+            }
+            catch (Exception e)
+            {
+
+            }
+            try {
+                started = hsTemp3.get(username);
+            }
+            catch (Exception e)
+            {
+
+            }
+
+
+            Ratings ratings = new Ratings(username,correct,incorrect,started);
+            alluser.add(ratings);
+        }
+
+
+
         DropTemp();
         db.close();
         return alluser;
