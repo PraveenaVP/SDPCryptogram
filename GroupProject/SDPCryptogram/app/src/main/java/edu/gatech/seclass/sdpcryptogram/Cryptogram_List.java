@@ -34,10 +34,10 @@ public class Cryptogram_List extends AppCompatActivity {
         username= bundle.getString("username");
         setContentView(R.layout.activity_cryptogram__list);
         String[] testdata = sdpdb.displayCryptograms(0,10);
-        String[]test = sdpdb.displayCryptogramsWithStatus(0,10,username);
+        String[]test = sdpdb.displayCryptogramsWithStatus(username);
         if(test != null) {
             ListView cryptList = (ListView) findViewById(R.id.crypt_list);
-            ArrayAdapter<String> cryptlistAdapter = new ArrayAdapter<String>(this, R.layout.cryptogram_list, R.id.list_cryptogram, testdata);
+            ArrayAdapter<String> cryptlistAdapter = new ArrayAdapter<String>(this, R.layout.cryptogram_list, R.id.list_cryptogram, test);
             cryptList.setAdapter(cryptlistAdapter);
             cryptList.setOnItemClickListener(new ItemList());
         }
@@ -55,7 +55,7 @@ public class Cryptogram_List extends AppCompatActivity {
             String selected  = crypt_text.getText().toString();
             int index = selected.indexOf(':');
             int cryptID = Integer.parseInt (selected.substring(0,index));
-            String crypt  = selected.substring(index+1,selected.length());
+            String crypt  = sdpdb.CryptogramSolution(cryptID,false);
 
             Intent newIntent = new Intent(Cryptogram_List.this, Solve_Cryptogram.class);
 
@@ -73,7 +73,12 @@ public class Cryptogram_List extends AppCompatActivity {
 
     public void onReturnClick(View view)
     {
-        super.onBackPressed();
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
 }

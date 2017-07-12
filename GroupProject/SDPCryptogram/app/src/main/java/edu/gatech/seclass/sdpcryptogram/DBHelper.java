@@ -41,7 +41,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
 
     //Database Name
-    public static final String DATABASE_NAME = "SDPCryptogram4.db";
+    public static final String DATABASE_NAME = "SDPCryptogram01.db";
 
     //Database Table Adminstrator
     public static final String TABLE_ADMINISTRATORS =  "Admin";
@@ -431,75 +431,185 @@ public class DBHelper extends SQLiteOpenHelper {
         return cryptogram_list;
     }
 
-    public String[] displayCryptogramsWithStatus( int cryptogramID, int limit,String username)
+    public void DropTemp()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS TEMP1;");
+        db.execSQL("DROP TABLE IF EXISTS TEMP2;");
+        db.execSQL("DROP TABLE IF EXISTS TEMP3;");
+        db.execSQL("DROP TABLE IF EXISTS TEMP4;");
+    }
+
+    public String[] displayCryptogramsWithStatus(String username)
     {
 
 
-//        String displyCryptogramQuery = "SELECT * FROM "+TABLE_CRYPTOGRAMS +
-//                " WHERE " + CRYPTOGRAM_ID + ">" +cryptogramID +
-//                " ORDER BY  " +CRYPTOGRAM_ID + " ASC " +
-//                " LIMIT " + limit +";" ;
-//
+        StringBuilder sb1 = new StringBuilder();
+        //sb1.append("DROP TABLE IF EXISTS TEMP1; ");
+        sb1.append("CREATE TABLE TEMP1 AS ");
+        sb1.append("SELECT DISTINCT ");
+        sb1.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb1.append(",");
+        sb1.append(PLAYER_GAMES_CRYPTOGRAM_TEXT);
+        sb1.append(", ");
+        sb1.append("CASE ");
+        sb1.append(PLAYER_GAMES_STATUS);
+        sb1.append(" WHEN 'C' THEN 'SOLVED' ELSE 'INPROCESS' END AS GAME_STATUS ");
+        sb1.append("FROM ");
+        sb1.append(TABLE_PLAYER_GAMES );
+        sb1.append(" WHERE ");
+        sb1.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb1.append("='");
+        sb1.append(username);
+        sb1.append("' GROUP BY ");
+        sb1.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb1.append(" ; ");
 
-        String displyCryptogramQuery = "DROP TABLE IF EXISTS TEMP;"+
-                                         "CREATE  TABLE TEMP AS "+
-                                        "SELECT " + PLAYER_GAMES_PLAYER_USERNAME+","+PLAYER_GAMES_CRYPTOGRAM_ID +
-                                         ","+PLAYER_GAMES_STATUS+ ", COUNT("+ PLAYER_GAMES_STATUS +
-                                        ") AS RATINGS  FROM " +  TABLE_PLAYER_GAMES  + " WHERE "+
-                                        PLAYER_GAMES_PLAYER_USERNAME + " IN ('" +username +"')  GROUP BY " +
-                                        PLAYER_GAMES_PLAYER_USERNAME+","+PLAYER_GAMES_CRYPTOGRAM_ID+","+
-                                        PLAYER_GAMES_STATUS + " ORDER BY " + PLAYER_GAMES_PLAYER_USERNAME+
-                                        ",COUNT("+PLAYER_GAMES_STATUS+") DESC;"+ " SELECT "+ CRYPTOGRAM_ID+","+
-                                        CRYPTOGRAM+", CASE " +PLAYER_GAMES_STATUS +" WHEN 'I' THEN RATINGS  WHEN 'C' " +
-                                        "THEN 'SOLVED' END AS GAME_STATUS FROM " + TABLE_CRYPTOGRAMS +
-                                        " LEFT JOIN TEMP ON "+  PLAYER_GAMES_CRYPTOGRAM_ID +" = "+ CRYPTOGRAM_ID +";";
+
+        StringBuilder sb2 = new StringBuilder();
+        //sb1.append("DROP TABLE IF EXISTS TEMP2; ");
+        sb2.append("CREATE TABLE TEMP2 AS ");
+        sb2.append("SELECT DISTINCT ");
+        sb2.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb2.append(",");
+        sb2.append(PLAYER_GAMES_CRYPTOGRAM_TEXT);
+        sb2.append(",");
+        sb2.append("COUNT(");
+        sb2.append(PLAYER_GAMES_STATUS);
+        sb2.append(")  AS INCORRECT_COUNT ");
+        sb2.append("FROM ");
+        sb2.append(TABLE_PLAYER_GAMES);
+        sb2.append(" WHERE ");
+        sb2.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb2.append("='");
+        sb2.append(username);
+        sb2.append("' AND ");
+        sb2.append(PLAYER_GAMES_STATUS);
+        sb2.append(" = 'I'  GROUP BY ");
+        sb2.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb2.append(" ; ");
+        //sb1.append("DROP TABLE IF EXISTS TEMP3; ");
+
+        StringBuilder sb3 = new StringBuilder();
+        sb3.append("CREATE TABLE TEMP3 AS ");
+        sb3.append("SELECT TEMP1.");
+        sb3.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb3.append(" , TEMP1.");
+        sb3.append(PLAYER_GAMES_CRYPTOGRAM_TEXT);
+        sb3.append(",TEMP1.GAME_STATUS,TEMP2.INCORRECT_COUNT ");
+        sb3.append("FROM TEMP1 LEFT JOIN TEMP2 ON ");
+        sb3.append("TEMP1.");
+        sb3.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb3.append(" = TEMP2.");
+        sb3.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb3.append("; ");
+
+        //sb1.append("DROP TABLE IF EXISTS TEMP4; ");
+        StringBuilder sb4 = new StringBuilder();
+        sb4.append("CREATE TABLE TEMP4 AS ");
+        sb4.append(" SELECT ");
+        sb4.append(CRYPTOGRAM_ID);
+        sb4.append(",");
+        sb4.append(CRYPTOGRAM);
+        sb4.append(", 'UNATTEMPTED' AS GAMES_STATUS,'' AS INCORRECT_COUNT FROM ");
+        sb4.append(TABLE_CRYPTOGRAMS);
+        sb4.append(" WHERE ");
+        sb4.append(CRYPTOGRAM_ID);
+        sb4.append(" NOT IN(SELECT ");
+        sb4.append(PLAYER_GAMES_CRYPTOGRAM_ID);
+        sb4.append(" FROM TEMP3 ); ");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT * FROM TEMP3 UNION SELECT * FROM TEMP4; ");
+
 
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cryptogram_cursor = db.rawQuery(displyCryptogramQuery,null);
 
-        int count = cryptogram_cursor.getCount();
-        String cryptogram_list[] = new String[count];
-        int i = 0;
-        StringBuffer sb;;
-        if(cryptogram_cursor.moveToFirst())
+        try {
+            db.execSQL(sb1.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.print("Error creating Temp1");
+        }
+        try {
+            db.execSQL(sb2.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.print("Error creating Temp2");
+        }
+        try {
+            db.execSQL(sb3.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.print("Error creating Temp3");
+        }
+        try {
+            db.execSQL(sb4.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.print("Error creating Temp4");
+        }
+
+
+        Cursor cryptogram_cursor1 = db.rawQuery(sb.toString(),null);
+
+        int count = cryptogram_cursor1.getCount();
+        String cryptogram_list[] = new String[count+1];
+        StringBuilder sb0 = new StringBuilder();
+        sb0.append("ID");
+        sb0.append(":");
+        sb0.append("   ");
+        sb0.append("Game");
+        sb0.append(":");
+        sb0.append("   ");
+        sb0.append("Status");
+        sb0.append(":");
+        sb0.append("   ");
+        sb0.append("Incorrect attempts ");
+        sb0.append(":");
+        sb0.append("   ");
+
+        cryptogram_list[0] = sb0.toString();
+        int i = 1;
+        if(cryptogram_cursor1.moveToFirst())
         {
             do{
-                sb = new StringBuffer();
-                String current_crypt = cryptogram_cursor.getString(0);
-                if(!sb.toString().contains(current_crypt)) {
-                    sb.append(cryptogram_cursor.getString(0));
-                    sb.append(':');
-                    sb.append(cryptogram_cursor.getString(1));
-                    sb.append(':');
-                    String gamestatus = cryptogram_cursor.getString(2);
-                    sb.append("Game Status=");
-                    if(gamestatus.length() > 0) {
-                        sb.append("Solved");
-                    }
-                    else
-                    {
-                        sb.append("Unsolved");
-                    }
-                }
-                else
-                {
-                    cryptogram_cursor.moveToNext();
-                    sb.append("#Incorrect=");
-                    sb.append(cryptogram_cursor.getString(2));
+                StringBuilder sb11 = new StringBuilder();
+                sb11.append(cryptogram_cursor1.getString(0));
+                sb11.append(":");
+                sb11.append("   ");
+                sb11.append(cryptogram_cursor1.getString(1));
+                sb11.append(":");
+                sb11.append("   ");
+                sb11.append(cryptogram_cursor1.getString(2));
+                sb11.append(":");
+                sb11.append("   ");
+                String incorrect = cryptogram_cursor1.getString(3);
+                if(incorrect == null || incorrect.equals(""))
+                    incorrect = "0";
+                sb11.append(incorrect);
+                sb11.append("");
 
-                }
+                cryptogram_list[i] = sb11.toString();
+                i = i +1;
 
-            }while(cryptogram_cursor.moveToNext());
+
+
+            }while(cryptogram_cursor1.moveToNext());
             {
-                cryptogram_list[i] = sb.toString();
-                i = i+1;
+
             }
         }
         else
         {
             //Exception
         }
+        DropTemp();
         db.close();
         return cryptogram_list;
     }
@@ -650,91 +760,148 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public  String[] displayAllUserRatings() {
 
-        String[] alluser = null ;
-        String displayUserRatingsQuery = "SELECT " + PLAYER_GAMES_PLAYER_USERNAME + ","+ PLAYER_GAMES_STATUS+ ", COUNT(" + PLAYER_GAMES_STATUS + ") AS RATINGS " +
-                                         " FROM "+ TABLE_PLAYER_GAMES +
-                                         " GROUP BY "+PLAYER_GAMES_PLAYER_USERNAME+","+PLAYER_GAMES_STATUS+" ORDER BY "+PLAYER_GAMES_STATUS +", COUNT ("+PLAYER_GAMES_STATUS+") DESC";
+        DropTemp();
+        StringBuilder sb1 = new StringBuilder();
+        sb1.append("CREATE TABLE TEMP1 AS ");
+        sb1.append(" SELECT ");
+        sb1.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb1.append(" ,COUNT(");
+        sb1.append(PLAYER_GAMES_STATUS);
+        sb1.append(") AS CORRECT  FROM ");
+        sb1.append(TABLE_PLAYER_GAMES);
+        sb1.append(" WHERE ");
+        sb1.append(PLAYER_GAMES_STATUS);
+        sb1.append(" = 'C' GROUP BY  ");
+        sb1.append(PLAYER_GAMES_PLAYER_USERNAME);
 
+        StringBuilder sb2 = new StringBuilder();
+        sb2.append("CREATE TABLE TEMP2 AS ");
+        sb2.append(" SELECT ");
+        sb2.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb2.append(" ,COUNT(");
+        sb2.append(PLAYER_GAMES_STATUS);
+        sb2.append(") AS INCORRECT  FROM ");
+        sb2.append(TABLE_PLAYER_GAMES);
+        sb2.append(" WHERE ");
+        sb2.append(PLAYER_GAMES_STATUS);
+        sb2.append(" = 'I' GROUP BY  ");
+        sb2.append(PLAYER_GAMES_PLAYER_USERNAME);
+
+
+
+        StringBuilder sb3 = new StringBuilder();
+        sb3.append("CREATE TABLE TEMP3 AS ");
+        sb3.append(" SELECT ");
+        sb3.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb3.append(" ,COUNT(");
+        sb3.append(PLAYER_GAMES_STATUS);
+        sb3.append(") AS STARTED  FROM ");
+        sb3.append(TABLE_PLAYER_GAMES);
+        sb3.append(" WHERE ");
+        sb3.append(PLAYER_GAMES_STATUS);
+        sb3.append(" = 'S' GROUP BY  ");
+        sb3.append(PLAYER_GAMES_PLAYER_USERNAME);
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor userratings_cursor = db.rawQuery(displayUserRatingsQuery,null);
-        int i = 0;
+
+
+        try
+        {
+            db.execSQL(sb1.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error creating table temp1 for ratings");
+        }
+        try
+        {
+            db.execSQL(sb2.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error creating table temp2 for ratings");
+        }
+        try
+        {
+            db.execSQL(sb3.toString());
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error creating table temp3 for ratings");
+        }
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT TEMP1.");
+        sb.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb.append(",TEMP1.CORRECT,TEMP2.INCORRECT, TEMP3.STARTED ");
+        sb.append(" FROM TEMP1 LEFT JOIN TEMP2 ON ");
+        sb.append("TEMP1.");
+        sb.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb.append(" = ");
+        sb.append("TEMP2.");
+        sb.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb.append("  LEFT JOIN TEMP3 ON ");
+        sb.append("TEMP1.");
+        sb.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb.append(" = ");
+        sb.append("TEMP3.");
+        sb.append(PLAYER_GAMES_PLAYER_USERNAME);
+        sb.append(";");
+
+
+
+        Cursor userratings_cursor = db.rawQuery(sb.toString(),null);
+        int count  = userratings_cursor.getCount();
+        String[] alluser = new String[count+1];
+        StringBuilder sb_header = new StringBuilder();
+        sb_header.append("Username");
+        sb_header.append(" :        ");
+        sb_header.append("Correct");
+        sb_header.append(" : ");
+        sb_header.append("Incorrect");
+        sb_header.append(" : ");
+        sb_header.append("Started");
+        sb_header.append(" :");
+        alluser[0] = sb_header.toString();
+
+        int i = 1;
         if(userratings_cursor.moveToFirst())
         {
-            alluser = new String[userratings_cursor.getCount()];
-            StringBuilder sb = new StringBuilder(); ;
 
             do{
+                StringBuilder sb_row = new StringBuilder();
+                sb_row.append(userratings_cursor.getString(0));
+                sb_row.append(" :        ");
 
-                    String user_current = userratings_cursor.getColumnName(0);
-                    if(!sb.toString().contains(user_current)) {
+                String correct = userratings_cursor.getString(1);
+                if(correct != null && !correct.equals(""))
+                    sb_row.append(correct);
+                else
+                    sb_row.append("0");
+                sb_row.append("         ");
 
-                        sb.append("   Username:  ");
-                        sb.append(user_current);
+                String incorrect = userratings_cursor.getString(2);
+                if(incorrect != null && !incorrect.equals(""))
+                    sb_row.append(incorrect);
+                else
+                    sb_row.append("0");
+                sb_row.append("         ");
 
-                    }
-                    else
-                    {
-
-                    }
-
-                char retrieve_status1 =userratings_cursor.getString(1).charAt(0);
-                        if(retrieve_status1 == 'C')
-                        {
-                            sb.append("   Correct:   ");
-                            sb.append(userratings_cursor.getString(2));
-                        }
-                        else if(retrieve_status1 == 'I')
-                        {
-                            sb.append("    InCorrect:   ");
-                            sb.append(userratings_cursor.getString(2));                        }
-                        else if(retrieve_status1 == 'S')
-                        {
-                            sb.append("   Started:   ");
-                            sb.append(userratings_cursor.getString(2));                        }
-
-                userratings_cursor.moveToNext();
-                char retrieve_status2 =userratings_cursor.getString(1).charAt(0);
-                        if(retrieve_status2 == 'C')
-                        {
-                            sb.append("   Correct:   ");
-                            sb.append(userratings_cursor.getString(2));
-                        }
-                        else if(retrieve_status2 == 'I')
-                        {
-                            sb.append("   InCorrect:   ");
-                            sb.append(userratings_cursor.getString(2));                        }
-                        else if(retrieve_status2 == 'S')
-                        {
-                            sb.append("   Started:   ");
-                            sb.append(userratings_cursor.getString(2));                        }
-
-                userratings_cursor.moveToNext();
-                char retrieve_status3 =userratings_cursor.getString(1).charAt(0);
-                        if(retrieve_status3 == 'C')
-                        {
-                            sb.append("   Correct:   ");
-                            sb.append(userratings_cursor.getString(2));
-                        }
-                        else if(retrieve_status3 == 'I')
-                        {
-                            sb.append("   InCorrect:   ");
-                            sb.append(userratings_cursor.getString(2));                        }
-                        else if(retrieve_status3 == 'S')
-                        {
-                            sb.append("   Started:   ");
-                            sb.append(userratings_cursor.getString(2));                        }
+                String started = userratings_cursor.getString(3);
+                if(started != null && !started.equals(""))
+                    sb_row.append(started);
+                else
+                    sb_row.append("0");
+                sb_row.append("         ");
 
 
-
-
-                alluser[i] = sb.toString();
-                i = i + 1;
-                sb = new StringBuilder();
-
+                alluser[i] = sb_row.toString();
+                i = i +1;
            }
             while(userratings_cursor.moveToNext());
         }
+        DropTemp();
         db.close();
         return alluser;
     }
