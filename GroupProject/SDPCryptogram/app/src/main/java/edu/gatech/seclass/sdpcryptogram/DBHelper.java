@@ -63,7 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     //Database Table CryptogramsUtil
-    public static final String TABLE_CRYPTOGRAMS  = "CryptogramsUtil";
+    public static final String TABLE_CRYPTOGRAMS  = "Cryptograms";
 
     //Table CryptogramsUtil Columns
     public static final String CRYPTOGRAM_ID = "cryptogram_id";
@@ -838,6 +838,55 @@ public class DBHelper extends SQLiteOpenHelper {
         return priorgames;
     }
 
+
+    public ArrayList<CryptogramsUtil> displayPriorGames1(String username)
+    {
+
+        String displayPriorGamesQuery = " SELECT "+ PLAYER_GAMES_TEXT+","+PLAYER_GAMES_STATUS +","+PLAYER_GAMES_CRYPTOGRAM_TEXT+
+                ","+PLAYER_GAMES_CRYPTOGRAM_ID+
+                " FROM "  + TABLE_PLAYER_GAMES + " WHERE " + PLAYER_GAMES_PLAYER_USERNAME
+                +" IN ('"  + username +"') ;";
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor priorgames_cursor = db.rawQuery(displayPriorGamesQuery,null);
+        ArrayList<CryptogramsUtil> priorgames_list = new ArrayList<>();
+
+        if(priorgames_cursor.moveToFirst())
+        {
+            do {
+
+                String id = priorgames_cursor.getString(3);
+                String puzzle = priorgames_cursor.getString(2);
+                String userText = priorgames_cursor.getString(0);
+                char status = priorgames_cursor.getString(1).charAt(0);
+                String sbstaus = "";
+                if(status == 'S')
+                {
+                    sbstaus = "Started";
+                }
+                else if(status == 'C')
+                {
+                    sbstaus = "Solved";
+                }
+                else
+                {
+                    sbstaus = "Incorrect";
+                }
+
+                CryptogramsUtil priorcrypt = new CryptogramsUtil(id,puzzle,userText,sbstaus,true);
+                priorgames_list.add(priorcrypt);
+
+            }while(priorgames_cursor.moveToNext());
+
+        }
+        else
+        {
+            //exception
+        }
+        db.close();
+        return priorgames_list;
+    }
 
     /**
      * Retrieve single user ratings
