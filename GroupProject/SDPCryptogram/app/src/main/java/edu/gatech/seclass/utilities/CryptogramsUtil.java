@@ -20,12 +20,12 @@ public class CryptogramsUtil {
         this.incorrectcount = incorrectcount;
     }
 
-    public CryptogramsUtil(String id, String cryptogram, String solution, String status, String userText) {
+    //display prior cryptograms
+    public CryptogramsUtil(String id, String cryptogram, String userText, String status,boolean bid ) {
         this.id = id;
         this.cryptogram = cryptogram;
-        this.solution = solution;
-        this.status = status;
         this.userText = userText;
+        this.status = status;
     }
 
 
