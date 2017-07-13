@@ -4,7 +4,7 @@ package edu.gatech.seclass.utilities;
  * Created by praveena on 7/12/17.
  */
 
-public class Cryptograms {
+public class CryptogramsUtil {
     private String id;
     private String cryptogram;
     private String solution;
@@ -13,14 +13,14 @@ public class Cryptograms {
     private String userText;
 
     //used for display the list of cryptograms
-    public Cryptograms(String id, String cryptogram, String status, String incorrectcount) {
+    public CryptogramsUtil(String id, String cryptogram, String status, String incorrectcount) {
         this.id = id;
         this.cryptogram = cryptogram;
         this.status = status;
         this.incorrectcount = incorrectcount;
     }
 
-    public Cryptograms(String id, String cryptogram, String solution, String status, String userText) {
+    public CryptogramsUtil(String id, String cryptogram, String solution, String status, String userText) {
         this.id = id;
         this.cryptogram = cryptogram;
         this.solution = solution;

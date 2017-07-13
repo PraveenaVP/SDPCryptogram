@@ -12,18 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 
-import edu.gatech.seclass.utilities.Cryptograms;
+import edu.gatech.seclass.utilities.CryptogramsUtil;
 
 public class Cryptogram_List extends AppCompatActivity {
 
@@ -37,7 +33,7 @@ public class Cryptogram_List extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         username= bundle.getString("username");
         setContentView(R.layout.activity_cryptogram__list);
-        ArrayList<Cryptograms> getCryptograms= sdpdb.displayCryptogramsWithStatus1(username);
+        ArrayList<CryptogramsUtil> getCryptograms= sdpdb.displayCryptogramsWithStatus1(username);
         ListView cryptList = (ListView) findViewById(R.id.crypt_list);
         if(getCryptograms != null) {
 
@@ -47,12 +43,12 @@ public class Cryptogram_List extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(this,"No Cryptograms found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"No CryptogramsUtil found", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    public class CryptogramAdapter extends ArrayAdapter<Cryptograms>
+    public class CryptogramAdapter extends ArrayAdapter<CryptogramsUtil>
     {
         private Context mcontext;
         private int mresource;
@@ -65,7 +61,7 @@ public class Cryptogram_List extends AppCompatActivity {
          * @param objects  The objects to represent in the ListView.
          */
         public CryptogramAdapter(@NonNull Context context, @LayoutRes int resource,
-                                 @NonNull ArrayList<Cryptograms> objects) {
+                                 @NonNull ArrayList<CryptogramsUtil> objects) {
             super(context, resource, objects);
             mcontext = context;
             mresource = resource;
@@ -80,7 +76,7 @@ public class Cryptogram_List extends AppCompatActivity {
             String status = getItem(position).getStatus();
             String incorrectcount = getItem(position).getIncorrectcount();
 
-            Cryptograms addCryptogram = new Cryptograms(id,cryptogram,status,incorrectcount);
+            CryptogramsUtil addCryptogram = new CryptogramsUtil(id,cryptogram,status,incorrectcount);
 
             LayoutInflater inflator = LayoutInflater.from(mcontext);
             convertView = inflator.inflate(mresource,parent,false);

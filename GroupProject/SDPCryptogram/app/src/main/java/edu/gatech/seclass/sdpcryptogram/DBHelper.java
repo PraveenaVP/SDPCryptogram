@@ -1,25 +1,18 @@
 package edu.gatech.seclass.sdpcryptogram;
 
-import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.Settings;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import edu.gatech.seclass.utilities.Ratings;
-import edu.gatech.seclass.utilities.Cryptograms;
-import java.util.EmptyStackException;
+import edu.gatech.seclass.utilities.RatingsUtil;
+import edu.gatech.seclass.utilities.CryptogramsUtil;
+
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
-
-import edu.gatech.seclass.utilities.*;
 
 
 /**
@@ -69,10 +62,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-    //Database Table Cryptograms
-    public static final String TABLE_CRYPTOGRAMS  = "Cryptograms";
+    //Database Table CryptogramsUtil
+    public static final String TABLE_CRYPTOGRAMS  = "CryptogramsUtil";
 
-    //Table Cryptograms Columns
+    //Table CryptogramsUtil Columns
     public static final String CRYPTOGRAM_ID = "cryptogram_id";
     public static final String CRYPTOGRAM = "cryptogram";
     public static final String SOLUTION = "solution";
@@ -134,7 +127,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-        //Creating Cryptograms Table
+        //Creating CryptogramsUtil Table
         String CREATE_CRYPTOGRAMS_TABLE = "CREATE TABLE "+TABLE_CRYPTOGRAMS + " ( "
                 + CRYPTOGRAM_ID + " INTEGER PRIMARY KEY, "
                 + CRYPTOGRAM + " TEXT UNIQUE, "
@@ -145,7 +138,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL(CREATE_CRYPTOGRAMS_TABLE);
         }catch (Exception e)
         {
-            System.out.println("Unable to create Cryptograms table");
+            System.out.println("Unable to create CryptogramsUtil table");
         }
 
         //Creating Player_Games Table.
@@ -250,7 +243,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    // Insert into Cryptograms Tables
+    // Insert into CryptogramsUtil Tables
     public boolean insertDataCryptograms(String cryptogram, String solution)
     {
         boolean status = false;
@@ -622,7 +615,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<Cryptograms> displayCryptogramsWithStatus1(String username)
+    public ArrayList<CryptogramsUtil> displayCryptogramsWithStatus1(String username)
     {
 
 
@@ -739,7 +732,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
         Cursor cryptogram_cursor = db.rawQuery(sb.toString(),null);
-        ArrayList<Cryptograms> cryptogram_list = new ArrayList<>();
+        ArrayList<CryptogramsUtil> cryptogram_list = new ArrayList<>();
 
         if(cryptogram_cursor.moveToFirst())
         {
@@ -750,7 +743,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String incorrect = cryptogram_cursor.getString(3);
                 if(incorrect == null || incorrect.equals(""))
                     incorrect = "0";
-                Cryptograms addCryptogram = new Cryptograms(id,cryptogram,status,incorrect);
+                CryptogramsUtil addCryptogram = new CryptogramsUtil(id,cryptogram,status,incorrect);
                 cryptogram_list.add(addCryptogram);
 
 
@@ -1068,7 +1061,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * Retrieve  ratings of all users
      * TODO
      */
-    public  ArrayList<Ratings> displayAllUserRatings1() {
+    public  ArrayList<RatingsUtil> displayAllUserRatings1() {
 
         DropTemp();
         StringBuilder sb1 = new StringBuilder();
@@ -1149,7 +1142,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor temp2 = db.rawQuery(sb_Temp2,null);
         Cursor temp3 = db.rawQuery(sb_Temp3,null);
 
-        ArrayList<Ratings>alluser = new ArrayList<>();
+        ArrayList<RatingsUtil>alluser = new ArrayList<>();
         List<String> lsusernames = new ArrayList<>();
         Map<String,String> hsTemp1 = new HashMap<String,String>();
         Map<String,String> hsTemp2 = new HashMap<String,String>();
@@ -1231,7 +1224,7 @@ public class DBHelper extends SQLiteOpenHelper {
             }
 
 
-            Ratings ratings = new Ratings(username,correct,incorrect,started);
+            RatingsUtil ratings = new RatingsUtil(username,correct,incorrect,started);
             alluser.add(ratings);
         }
 

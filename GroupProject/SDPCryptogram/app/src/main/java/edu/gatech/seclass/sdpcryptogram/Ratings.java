@@ -1,7 +1,6 @@
 package edu.gatech.seclass.sdpcryptogram;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,19 +9,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.RecursiveAction;
 
-import static edu.gatech.seclass.sdpcryptogram.R.layout.ratings;
+import edu.gatech.seclass.utilities.RatingsUtil;
+import edu.gatech.seclass.utilities.ExternalWebService;
 
 public class Ratings extends AppCompatActivity {
 
@@ -38,7 +33,7 @@ public class Ratings extends AppCompatActivity {
         username= bundle.getString("username");
         sdpdb = new DBHelper(this);
         ListView ratingsList = (ListView) findViewById(R.id.ratings_listview);
-        ArrayList<edu.gatech.seclass.utilities.Ratings> getRatings= sdpdb.displayAllUserRatings1();
+        ArrayList<RatingsUtil> getRatings= sdpdb.displayAllUserRatings1();
 
         if(getRatings != null) {
             RatingsAdpater ratingsAdapter = new RatingsAdpater(this, R.layout.ratings, getRatings);
@@ -54,11 +49,7 @@ public class Ratings extends AppCompatActivity {
     }
 
 
-
-
-
-
-   public class RatingsAdpater extends ArrayAdapter<edu.gatech.seclass.utilities.Ratings>
+   public class RatingsAdpater extends ArrayAdapter<RatingsUtil>
    {
        private Context mcontext;
        private int mresource;
@@ -74,7 +65,7 @@ public class Ratings extends AppCompatActivity {
         * @param objects  The objects to represent in the ListView.
         */
        public RatingsAdpater(@NonNull Context context, @LayoutRes int resource,
-                             @NonNull ArrayList<edu.gatech.seclass.utilities.Ratings> objects)
+                             @NonNull ArrayList<RatingsUtil> objects)
        {
            super(context, resource, objects);
            mcontext = context;
@@ -91,7 +82,7 @@ public class Ratings extends AppCompatActivity {
            String incorrect = getItem(position).getIncorrect();
            String started = getItem(position).getStarted();
 
-           edu.gatech.seclass.utilities.Ratings displayRatings = new edu.gatech.seclass.utilities.Ratings(username,solved,incorrect,started);
+           RatingsUtil displayRatings = new RatingsUtil(username,solved,incorrect,started);
 
            //Create a new Layout inflater
 
@@ -132,5 +123,11 @@ public class Ratings extends AppCompatActivity {
     public void onReturnClick(View view)
     {
         super.onBackPressed();
+    }
+
+    public void onUploadClick(View view) {
+        ExternalWebService server = ExternalWebService.getInstance();
+
+
     }
 }

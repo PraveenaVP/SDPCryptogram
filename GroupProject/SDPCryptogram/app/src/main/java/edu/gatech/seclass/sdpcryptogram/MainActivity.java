@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Added for db
     DBHelper sdpcryptogram_db;
+    CurrentUserInfo currentUserInfo = CurrentUserInfo.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         }
+
+        currentUserInfo.setCurrentUser(username.getText().toString());
 
         if(username.getText().toString().contains("admin"))
         {

@@ -4,7 +4,7 @@ package edu.gatech.seclass.utilities;
  * Created by praveena on 7/12/17.
  */
 
-public class Ratings {
+public class RatingsUtil {
 
     private String username;
     private String solved;
@@ -12,7 +12,7 @@ public class Ratings {
     private  String started;
 
 
-    public Ratings(String username, String solved, String incorrect, String started) {
+    public RatingsUtil(String username, String solved, String incorrect, String started) {
         this.username = username;
         this.solved = solved;
         this.incorrect = incorrect;

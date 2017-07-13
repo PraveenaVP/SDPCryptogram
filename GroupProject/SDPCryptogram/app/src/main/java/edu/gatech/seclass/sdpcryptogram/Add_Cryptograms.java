@@ -91,12 +91,12 @@ public class Add_Cryptograms extends AppCompatActivity {
             boolean result = sdpdb.insertDataCryptograms(strencodedPhrase, strinputPhrase);
                 if (!result) {
                     txtWebServiceMessage.setText("Cryptogram already exists");
-
                 } else {
                     String ref = externalWebService.addCryptogramService(strinputPhrase, strencodedPhrase);
                     if (ref != null)
                         txtWebServiceMessage.setText("Saved & Identifier is " + ref);
-
+                    else
+                        txtWebServiceMessage.setText("Error. Could not add it to external web server.");
                 }
             }
         }
