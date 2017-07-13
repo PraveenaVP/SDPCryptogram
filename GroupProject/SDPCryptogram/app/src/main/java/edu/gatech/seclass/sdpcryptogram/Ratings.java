@@ -127,7 +127,9 @@ public class Ratings extends AppCompatActivity {
 
     public void onUploadClick(View view) {
         ExternalWebService server = ExternalWebService.getInstance();
+        DBHelper localDB = new DBHelper(this);
 
-
+        // updateRatingService(String username,	String firstname, String lastname, int solved, int started,	int incorrect)
+        //server.updateRatingService();
     }
 }
