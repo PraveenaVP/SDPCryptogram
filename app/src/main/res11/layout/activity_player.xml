@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/Player"
+    tools:context="edu.gatech.seclass.sdpcryptogram.PlayerActivity">
+
+    <RadioButton
+        android:id="@+id/viewPlayerRatingRadioButton"
+        android:layout_width="280dp"
+        android:layout_height="42dp"
+        android:text="View Player Rating"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="252dp" />
+
+    <Button
+        android:id="@+id/playerReturnButton"
+        style="@android:style/Widget.Button.Transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Return"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="136dp"
+        tools:layout_editor_absoluteY="392dp" />
+
+    <RadioButton
+        android:id="@+id/chooseCryptogramRadioButton"
+        android:layout_width="290dp"
+        android:layout_height="42dp"
+        android:text="Choose Cryptogram to Solve"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="200dp" />
+
+    <RadioButton
+        android:id="@+id/viewSolvedCryptogramRadioButton"
+        android:layout_width="280dp"
+        android:layout_height="42dp"
+        android:text="View Previously Solved Cryptogram"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="150dp" />
+
+    <Button
+        android:id="@+id/playerSubmitButton"
+        style="@android:style/Widget.Button.Transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="136dp"
+        tools:layout_editor_absoluteY="321dp" />
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/multiAutoCompleteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Player Option"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:background="@color/colorPrimary"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="99dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="28dp"
+        android:layout_height="26dp"
+        app:srcCompat="@android:drawable/btn_star_big_on"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="99dp" />
+
+
+</android.support.constraint.ConstraintLayout>
