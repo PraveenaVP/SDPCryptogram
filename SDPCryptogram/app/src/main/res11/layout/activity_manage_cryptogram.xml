@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/Admin"
+    tools:context="edu.gatech.seclass.sdpcryptogram.ManageCryptogramActivity">
+
+    <Button
+        android:id="@+id/returnManageCryptogramButton"
+        style="@android:style/Widget.Button.Transparent"
+        android:layout_width="240dp"
+        android:layout_height="44dp"
+        android:text="Return"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="386dp" />
+
+    <Button
+        android:id="@+id/button"
+        style="@android:style/Widget.Button.Transparent"
+        android:layout_width="118dp"
+        android:layout_height="41dp"
+        android:text="Edit Match"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="182dp"
+        tools:layout_editor_absoluteY="251dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="36dp"
+        android:layout_height="47dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="245dp" />
+
+    <Button
+        android:id="@+id/saveCryptogramButton"
+        style="@android:style/Widget.Button.Transparent"
+        android:layout_width="240dp"
+        android:layout_height="44dp"
+        android:text="Save Cryptogram"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="305dp" />
+
+    <EditText
+        android:id="@+id/solution"
+        android:layout_width="239dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:hint="Solution"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="81dp" />
+
+    <EditText
+        android:id="@+id/matchSolution"
+        android:layout_width="239dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:hint="Matching Solution"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="132dp" />
+
+    <EditText
+        android:id="@+id/playerUserName"
+        android:layout_width="241dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:hint="Message"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="187dp" />
+
+    <Button
+        android:id="@+id/editSolutionButton"
+        style="@android:style/Widget.Button.Transparent"
+        android:layout_width="118dp"
+        android:layout_height="41dp"
+        android:text="Edit Solution"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="251dp" />
+
+</android.support.constraint.ConstraintLayout>

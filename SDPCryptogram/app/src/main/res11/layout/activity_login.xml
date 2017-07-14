@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background = "@drawable/bg"
+    tools:context="edu.gatech.seclass.sdpcryptogram.LoginActivity">
+
+
+    <Button
+        android:id="@+id/logout"
+        style="@android:style/Widget.Button.Transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOG OUT"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="136dp"
+        tools:layout_editor_absoluteY="401dp" />
+
+    <Button
+        android:id="@+id/login"
+        style="@android:style/Widget.Button.Transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:shadowColor="@color/colorPrimary"
+        android:text="LOG IN"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="136dp"
+        tools:layout_editor_absoluteY="332dp" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="216dp"
+        android:layout_height="64dp"
+        android:ems="10"
+        android:hint="username"
+        android:textStyle="bold"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="213dp" />
+
+</android.support.constraint.ConstraintLayout>
