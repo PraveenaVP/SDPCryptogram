@@ -1,0 +1,147 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:2:1-36:12
+	package
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:3:5-47
+		INJECTED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml
+		INJECTED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml
+		INJECTED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml
+		INJECTED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:6:5-71
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:6:22-68
+uses-permission#android.permission.READ_PROFILE
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:7:5-71
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:7:22-68
+uses-permission#android.permission.READ_CONTACTS
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:8:5-72
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:8:22-69
+application
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:10:5-34:19
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /home/praveena/.android/build-cache/55c7ee194e580fc999d64501e75d6a1c904bfc7f/output/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:design:25.3.1] /home/praveena/.android/build-cache/0cd2960426b887131bfc39d724fab5cd8bb8cb45/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:appcompat-v7:25.3.1] /home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /home/praveena/.android/build-cache/07acccf8fe034547d8984a59f09457b1c9da8ffd/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /home/praveena/.android/build-cache/d57ad605d36e83eb871e563f95b0d0678c249b48/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:transition:25.3.1] /home/praveena/.android/build-cache/d42a1078f07b15221278181c2900d55545e5607b/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-v4:25.3.1] /home/praveena/.android/build-cache/677207a5beb41b0c5da864d1a80eb6c831d6d660/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] /home/praveena/.android/build-cache/becd88fe2e6c5293afa3ff3cebaf6da815f7bcec/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] /home/praveena/.android/build-cache/6069f9bbd37de55198d1210fcc1edec2436871cc/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] /home/praveena/.android/build-cache/0c66f768e1bfc20867c7208e1f8081197f0fb450/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] /home/praveena/.android/build-cache/c08e204f2100d4600d74bd866696b5ccd5b34ff4/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] /home/praveena/.android/build-cache/567714e6478d26551e798712c09ba3dfc321265f/output/AndroidManifest.xml:29:5-20
+	android:label
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:13:9-41
+	android:supportsRtl
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:15:9-35
+	android:roundIcon
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:14:9-54
+	android:allowBackup
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:11:9-35
+	android:icon
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:12:9-43
+	android:theme
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:16:9-40
+activity#edu.gatech.seclass.gui.UIMainActivity
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:17:9-23:20
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:17:19-71
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:18:13-22:29
+action#android.intent.action.MAIN
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:19:17-69
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:19:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:21:17-77
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:21:27-74
+activity#edu.gatech.seclass.gui.UIAdminHomePage
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:24:9-75
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:24:19-72
+activity#edu.gatech.seclass.gui.UIPlayerHomePage
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:25:9-76
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:25:19-73
+activity#edu.gatech.seclass.gui.UIAddCryptograms
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:26:9-76
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:26:19-73
+activity#edu.gatech.seclass.gui.UIAddPlayer
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:27:9-71
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:27:19-68
+activity#edu.gatech.seclass.gui.UIViewPrior
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:28:9-71
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:28:19-68
+activity#edu.gatech.seclass.gui.UISolveCryptogram
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:29:9-77
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:29:19-74
+activity#edu.gatech.seclass.gui.UIRatingList
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:30:9-72
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:30:19-69
+activity#edu.gatech.seclass.gui.UICryptogramList
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:31:9-76
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:31:19-73
+activity#edu.gatech.seclass.gui.UIPlayerRating
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:32:9-74
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:32:19-71
+activity#edu.gatech.seclass.gui.UISolvePrior
+ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:33:9-81
+	android:name
+		ADDED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml:33:19-69
+uses-sdk
+INJECTED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /home/praveena/.android/build-cache/55c7ee194e580fc999d64501e75d6a1c904bfc7f/output/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:design:25.3.1] /home/praveena/.android/build-cache/0cd2960426b887131bfc39d724fab5cd8bb8cb45/output/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:25.3.1] /home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /home/praveena/.android/build-cache/07acccf8fe034547d8984a59f09457b1c9da8ffd/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /home/praveena/.android/build-cache/d57ad605d36e83eb871e563f95b0d0678c249b48/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /home/praveena/.android/build-cache/6fce172f9d883fffcc4509551cd37f9cbd92cf72/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:transition:25.3.1] /home/praveena/.android/build-cache/d42a1078f07b15221278181c2900d55545e5607b/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:25.3.1] /home/praveena/.android/build-cache/677207a5beb41b0c5da864d1a80eb6c831d6d660/output/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] /home/praveena/.android/build-cache/becd88fe2e6c5293afa3ff3cebaf6da815f7bcec/output/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] /home/praveena/.android/build-cache/6069f9bbd37de55198d1210fcc1edec2436871cc/output/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.3.1] /home/praveena/.android/build-cache/0c66f768e1bfc20867c7208e1f8081197f0fb450/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.3.1] /home/praveena/.android/build-cache/c08e204f2100d4600d74bd866696b5ccd5b34ff4/output/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:25.3.1] /home/praveena/.android/build-cache/567714e6478d26551e798712c09ba3dfc321265f/output/AndroidManifest.xml:21:5-23:58
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:25.3.1] /home/praveena/.android/build-cache/0cd2960426b887131bfc39d724fab5cd8bb8cb45/output/AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml
+		INJECTED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml
+		INJECTED from /home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/src/main/AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:design:25.3.1] /home/praveena/.android/build-cache/0cd2960426b887131bfc39d724fab5cd8bb8cb45/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:appcompat-v7:25.3.1] /home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /home/praveena/.android/build-cache/07acccf8fe034547d8984a59f09457b1c9da8ffd/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /home/praveena/.android/build-cache/d57ad605d36e83eb871e563f95b0d0678c249b48/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /home/praveena/.android/build-cache/6fce172f9d883fffcc4509551cd37f9cbd92cf72/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:transition:25.3.1] /home/praveena/.android/build-cache/d42a1078f07b15221278181c2900d55545e5607b/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-v4:25.3.1] /home/praveena/.android/build-cache/677207a5beb41b0c5da864d1a80eb6c831d6d660/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] /home/praveena/.android/build-cache/becd88fe2e6c5293afa3ff3cebaf6da815f7bcec/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] /home/praveena/.android/build-cache/6069f9bbd37de55198d1210fcc1edec2436871cc/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] /home/praveena/.android/build-cache/0c66f768e1bfc20867c7208e1f8081197f0fb450/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] /home/praveena/.android/build-cache/c08e204f2100d4600d74bd866696b5ccd5b34ff4/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] /home/praveena/.android/build-cache/567714e6478d26551e798712c09ba3dfc321265f/output/AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:design:25.3.1] /home/praveena/.android/build-cache/0cd2960426b887131bfc39d724fab5cd8bb8cb45/output/AndroidManifest.xml:27:9-31
+	android:name
+		ADDED from [com.android.support:design:25.3.1] /home/praveena/.android/build-cache/0cd2960426b887131bfc39d724fab5cd8bb8cb45/output/AndroidManifest.xml:26:9-47

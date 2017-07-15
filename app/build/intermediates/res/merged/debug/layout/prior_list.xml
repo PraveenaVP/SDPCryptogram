@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Text"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:id="@+id/prior_text"-->
+     <!--/>-->
+
+    <TextView
+        android:id="@+id/tvid"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_weight="25"
+        android:gravity="left"
+        android:textAlignment="gravity"
+        android:text="ID"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tvcrypt"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_weight="25"
+        android:gravity="left"
+        android:text="Puzzle"
+        android:textAlignment="gravity"
+        android:textColor="@android:color/white" />
+    <TextView
+        android:id="@+id/tvusertext"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_weight="25"
+        android:gravity="left"
+        android:text="UserText"
+        android:textAlignment="gravity"
+        android:textColor="@android:color/white" />
+    <TextView
+        android:id="@+id/tvstatus"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_weight="25"
+        android:gravity="left"
+        android:text="Status"
+        android:textAlignment="gravity"
+        android:textColor="@android:color/white" />
+
+
+
+
+</LinearLayout>

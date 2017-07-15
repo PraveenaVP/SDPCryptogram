@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "/home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/build/intermediates/res/merged/debug/color-v23/abc_btn_colored_borderless_text_material.xml",
+        "source": "/home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/res/color-v23/abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "/home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/build/intermediates/res/merged/debug/color-v23/abc_tint_edittext.xml",
+        "source": "/home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/res/color-v23/abc_tint_edittext.xml"
+    },
+    {
+        "merged": "/home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/build/intermediates/res/merged/debug/color-v23/abc_tint_spinner.xml",
+        "source": "/home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/res/color-v23/abc_tint_spinner.xml"
+    },
+    {
+        "merged": "/home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/build/intermediates/res/merged/debug/color-v23/abc_btn_colored_text_material.xml",
+        "source": "/home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/res/color-v23/abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "/home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/build/intermediates/res/merged/debug/color-v23/abc_tint_default.xml",
+        "source": "/home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/res/color-v23/abc_tint_default.xml"
+    },
+    {
+        "merged": "/home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/build/intermediates/res/merged/debug/color-v23/abc_tint_seek_thumb.xml",
+        "source": "/home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/res/color-v23/abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "/home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/build/intermediates/res/merged/debug/color-v23/abc_color_highlight_material.xml",
+        "source": "/home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/res/color-v23/abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "/home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_track.xml",
+        "source": "/home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/res/color-v23/abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "/home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/build/intermediates/res/merged/debug/color-v23/design_tint_password_toggle.xml",
+        "source": "/home/praveena/.android/build-cache/0cd2960426b887131bfc39d724fab5cd8bb8cb45/output/res/color-v23/design_tint_password_toggle.xml"
+    },
+    {
+        "merged": "/home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/build/intermediates/res/merged/debug/color-v23/abc_tint_btn_checkable.xml",
+        "source": "/home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/res/color-v23/abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "/home/praveena/Test/v2/SDPCryptogram/SDPCryptogram/app/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_thumb.xml",
+        "source": "/home/praveena/.android/build-cache/c6b951da0cb271907b886c09e77e1fa4bffbe6c1/output/res/color-v23/abc_tint_switch_thumb.xml"
+    }
+]
