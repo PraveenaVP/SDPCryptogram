@@ -23,4 +23,14 @@ public class Ratings {
         ArrayList<RatingsUtil> ratingsList=  sdpdb.displayAllUserRatings1();
         return ratingsList;
     }
+
+    /*
+   * pvp7:Created this to link to the UI page
+   *
+   * */
+    public static void  insertFirstRatings(Context context)
+    {
+        DBHelper sdpdb = new DBHelper(context);
+        boolean resultplayergame = sdpdb.insertupdateDataPlayer_Games("JD",1,"ABC","ZZZ","I");
+    }
 }

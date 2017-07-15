@@ -135,6 +135,21 @@ public class UIViewPrior extends AppCompatActivity {
 
     public void onReturnClick(View view)
     {
-        super.onBackPressed();
+        onBackPressed();
+    }
+
+
+    /**
+     * Take care of popping the fragment back stack or finishing the activity
+     * as appropriate.
+     */
+    @Override
+    public void onBackPressed() {
+
+        Intent prevActivity = new Intent(this,UIPlayerHomePage.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("username",username);
+        prevActivity.putExtras(bundle);
+        startActivity(prevActivity);
     }
 }

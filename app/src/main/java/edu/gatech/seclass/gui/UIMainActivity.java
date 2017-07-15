@@ -7,8 +7,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import edu.gatech.seclass.sdpcryptogram.Cryptogram;
 import edu.gatech.seclass.sdpcryptogram.DBHelper;
+import edu.gatech.seclass.sdpcryptogram.Player;
 import edu.gatech.seclass.sdpcryptogram.R;
+import edu.gatech.seclass.sdpcryptogram.Ratings;
 
 /**
  * Created by praveena on 7/3/17.
@@ -25,7 +28,9 @@ public class UIMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Calls the constructor of DBHelper that creates the db and tables
-        sdpcryptogram_db  = new DBHelper(this);
+        Ratings.insertFirstRatings(this);
+        Cryptogram.insertFirstCryptogram(this);
+        Player.insertFirstPlayer(this);
     }
 
 

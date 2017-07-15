@@ -42,7 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
 
     //Database Name
-    public static final String DATABASE_NAME = "SDPCryptogram01.db";
+    public static final String DATABASE_NAME = "SDPCryptogram14.db";
 
     //Database Table Adminstrator
     public static final String TABLE_ADMINISTRATORS =  "Admin";
@@ -159,6 +159,8 @@ public class DBHelper extends SQLiteOpenHelper {
         {
             System.out.println("Unable to create Player_Games table");
         }
+
+
 
     }
 
@@ -371,6 +373,48 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    /**Display data of a player based on the player_username
+     * @param player_username  = the username used to log into the application
+     **/
+    public String[] displayPlayerDataArray(String player_username)
+    {
+
+        String selectPlayerQuery = "SELECT first_name,last_name,username FROM "+TABLE_PLAYERS+
+                " WHERE username IN ('"+player_username +"') ;";
+
+        SQLiteDatabase db  = this.getWritableDatabase();
+        String[] names = {"","",""};
+
+        Cursor player_cursor = db.rawQuery(selectPlayerQuery,null);
+
+        if (player_cursor.getCount() == 0)
+        {
+            db.close();
+        }
+        else
+        {
+            if(player_cursor.moveToFirst())
+            {
+
+                String firstname = player_cursor.getString(0);
+                String lastname = player_cursor.getString(1);
+                String username = player_cursor.getString(2);
+                if(firstname != null )
+                    names[0] = firstname;
+
+                if(lastname != null )
+                    names[1] = lastname;
+
+                if(username != null )
+                    names[2] = username;
+
+            }
+        }
+        db.close();
+        return names;
+
+    }
+
 
     /**
      * Retrieves the solution from Cryptogram Table using the cryptogram ID
@@ -483,7 +527,8 @@ public class DBHelper extends SQLiteOpenHelper {
         sb1.append(", ");
         sb1.append("CASE ");
         sb1.append(PLAYER_GAMES_STATUS);
-        sb1.append(" WHEN 'C' THEN 'SOLVED' ELSE 'INPROCESS' END AS GAME_STATUS ");
+       // sb1.append(" WHEN 'C' THEN 'SOLVED' ELSE 'INPROCESS' END AS GAME_STATUS ");
+        sb1.append(" WHEN 'C' THEN 'SOLVED'  WHEN 'S' THEN 'STARTED' ELSE 'INPROCESS' END AS GAME_STATUS ");
         sb1.append("FROM ");
         sb1.append(TABLE_PLAYER_GAMES );
         sb1.append(" WHERE ");

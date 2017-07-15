@@ -47,4 +47,14 @@ public class Player {
      return( sdpdb.RetrieveUserRating(username));
  }
 
+    /*
+     * pvp7:Created this to link to the UI page
+     *
+     * */
+    public static void  insertFirstPlayer(Context context)
+    {
+        DBHelper sdpdb = new DBHelper(context);
+        boolean resultplayer = sdpdb.insertDataPlayer("Jane","Doe","JD");
+    }
+
 }

@@ -67,6 +67,17 @@ public class UIPlayerHomePage extends AppCompatActivity {
 
     public void onReturnClick(View view)
     {
-        super.onBackPressed();
+
+        onBackPressed();
+    }
+
+    /**
+     * Take care of popping the fragment back stack or finishing the activity
+     * as appropriate.
+     */
+    @Override
+    public void onBackPressed() {
+        Intent newIntent = new Intent(this, UIMainActivity.class);
+        startActivity(newIntent);
     }
 }

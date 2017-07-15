@@ -127,5 +127,16 @@ public class Cryptogram {
         return  priorList;
     }
 
+    /*
+ * pvp7:Created this to link to the UI page
+ *
+ * */
+    public static void  insertFirstCryptogram(Context context)
+    {
+        DBHelper sdpdb = new DBHelper(context);
+        boolean resultcrypt = sdpdb.insertDataCryptograms("Test","Ufru");
+
+    }
+
 
 }

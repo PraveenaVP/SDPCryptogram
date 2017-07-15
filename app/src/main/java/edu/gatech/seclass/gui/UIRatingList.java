@@ -16,10 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.gatech.seclass.sdpcryptogram.DBHelper;
 import edu.gatech.seclass.sdpcryptogram.R;
 import edu.gatech.seclass.sdpcryptogram.Ratings;
+import edu.gatech.seclass.sdpcryptogram.Player;
 import edu.gatech.seclass.sdpcryptogram.WebServiceHelper;
 import edu.gatech.seclass.utilities.RatingsUtil;
 import edu.gatech.seclass.utilities.ExternalWebService;
@@ -33,6 +35,7 @@ public class UIRatingList extends AppCompatActivity {
 
     //DBHelper sdpdb ;
     String username;
+    ArrayList<RatingsUtil> getRatings;
 
 
     @Override
@@ -43,8 +46,14 @@ public class UIRatingList extends AppCompatActivity {
         username= bundle.getString("username");
        // sdpdb = new DBHelper(this);
         ListView ratingsList = (ListView) findViewById(R.id.ratings_listview);
+
        // ArrayList<RatingsUtil> getRatings= sdpdb.displayAllUserRatings1();
-        ArrayList<RatingsUtil> getRatings= Ratings.getAllPlayerRatings(this);
+       // ArrayList<RatingsUtil> getRatings= Ratings.getAllPlayerRatings(this);
+        int[] rating = Player.requestUserRatingFromServer(username); //retrieve the current user data
+        RatingsUtil currentplayerrating =
+                new RatingsUtil(username,String.valueOf(rating[2]),String.valueOf(rating[0]),String.valueOf(rating[1]));
+        getRatings= Ratings.getAllPlayerRatings(this);
+        //getRatings.add(currentplayerrating);
         if(getRatings != null) {
             RatingsAdpater ratingsAdapter = new RatingsAdpater(this, R.layout.ratings, getRatings);
             ratingsList.setAdapter(ratingsAdapter);
@@ -157,7 +166,22 @@ public class UIRatingList extends AppCompatActivity {
 //        int[] ratings = sdpdb.RetrieveUserRating(username);
 //
 //        boolean result = server.updateRatingService(username, names[0], names[1], ratings[0], ratings[1], ratings[2]);
-        boolean result = WebServiceHelper.ratingsupdate(this,username);
+        int size = 0;
+        boolean result = false;
+        if(getRatings != null)
+        {
+         size = getRatings.size();
+            for(int i = 0 ; i < size;i++)
+            {
+                result = WebServiceHelper.ratingsupdate(this, getRatings.get(i).getUsername());
+            }
+        }
+
+            else
+        {
+
+            result = WebServiceHelper.ratingsupdate(this, username);
+        }
 
         if (!result) {
             // error message
